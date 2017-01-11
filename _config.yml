@@ -87,7 +87,7 @@ icon-192p: "/img/web-app/icon-192p.png"
 
 enable-gesture-navigation: True
 
-post-preview-words: 96
+post-preview-words: 30
 
 paginate: 5
 
@@ -143,7 +143,7 @@ author_blurb_image: "/img/author.png"
 social:
   - title: "facebook"
     url: "https://facebook.com/suyash.mahar"
-  - twitter: "twitter"
+  - title: "twitter"
     url: "https://twitter.com/suyashmahar"
   - title: "github"
     url: "https://github.com/suyashmahar"
@@ -171,11 +171,11 @@ keybase-in-footer: False
 # Sections shown in the index page
 
 pages_list:
-  About: 'about'
-  Blog: 'latest-post'
-  Timeline: 'timeline'
-  Contact: 'contact'
-  Repositories: 'repositories'
+  About: 'a_about'
+  Blog: 'b_latest-post'
+  Timeline: 'c_timeline'
+  Projects: 'd_projects'
+  Contact: 'e_contact'
 
 # Exclusion list from the generated _site
 
