@@ -111,9 +111,12 @@ syntax-highlight: True
 ############
 
 events:
+  - image: "/img/timeline/mdg_logo.png"
+    date: "January 2017 - Present"
+    description: "Started as a developer at SDSLabs [Mobile Development Group](https://mdg.sdslabs.co/)."
   - image: "/img/timeline/clipboarder_icon.png"
     date: "December 2016 - January 2017"
-    description: "Started coding [Clipboarder](https://suyashmahar.github.io/clipboarder) for [SDSlabs](https://sdslabs.co) woc 2016"
+    description: "Developed [Clipboarder](https://suyashmahar.github.io/clipboarder) for [SDSlabs](https://sdslabs.co) woc 2016"
 
 # First image of the Timeline
 
