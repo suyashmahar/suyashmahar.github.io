@@ -32,9 +32,10 @@ The more I developed this application the more I got interested in it. I learned
 
 Overall Winter of Code was very exciting experience, I wouldn't be able to learn so many new things and meet awesome people if I didn't participated in it.
 
-<br>
-<br>
-### Links
+  
+
+  
+### Links  
 Winter of Code 2016: [Results](https://blog.sdslabs.co/2017/01/winter-of-code-2016) | [Proposal](https://1drv.ms/b/s!AstoF5PZWEQdp2CHq7kjSO2hdj5s)  
 Clipboarder: [Website](https://suyashmahar.github.io/Clipboarder) \| [GitHub Repository](https://github.com/suyashmahar/clipboarder)  
 SDSLabs: [Website](https://sdslabs.co) \| [Blog](https://blog.sdslabs.co)  
