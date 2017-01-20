@@ -101,7 +101,7 @@ pinterest-share: False
 pocket-share: False
 vkontakte-share: False
 
-disqus-shortname: "panossakkos"
+disqus-shortname: "suyashmahar"
 
 syntax-highlight: True
 
@@ -135,7 +135,7 @@ email: "contact@suyashmahar.me"
 # This works best when your author blurb image has a transparent background, or matches your site background color.
 
 # if the author_blurb is not set, then this feature is skipped
-author_blurb: "Suyash Mahar is an awesome person. He lives in Flatland, where he works on two-dimensional engineering projects. In his spare time, Suyash likes to eat cotton candy."
+author_blurb: "Suyash Mahar is an awesome person. He lives in Flatland, where he works on two-dimensional engineering projects and occasionally jumps out to work on things on which flatland is built. In his spare time, Suyash likes to eat cotton candy."
 author_blurb_image: "/img/author.png"
 
 ##################
@@ -162,7 +162,7 @@ social:
 # GPG on Keybase #
 ##################
 
-keybase-username: johnsmith
+keybase-username: suyashmahar
 keybase-in-social: False
 keybase-in-footer: False
 
