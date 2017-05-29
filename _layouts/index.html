@@ -16,23 +16,23 @@
     {% for page in site.pages %}
 
 
-      {% if page.section-type == "b_latest-post" %}
+      {% if page.section-type == "blog" %}
 
-        {% include latest-post.html %}
+        {% include blog.html %}
 
-      {% elsif page.section-type == "d_projects-p" %}
+      {% elsif page.section-type == "projects-p" %}
 
         {% include projects-p.html %}
 
-      {% elsif page.section-type == "c_timeline" %}
+      {% elsif page.section-type == "timeline" %}
 
         {% include timeline.html %}
 
-      {% elsif page.section-type == "a_about" %}
+      {% elsif page.section-type == "about" %}
 
         {% include about.html %}
 
-      {% elsif page.section-type == "e_contact" %}
+      {% elsif page.section-type == "contact" %}
 
         {% include contact.html %}
 

@@ -173,11 +173,11 @@ keybase-in-footer: False
 # Sections shown in the index page
 
 pages_list:
-  About: 'a_about'
-  Blog: 'b_latest-post'
-  Timeline: 'c_timeline'
-  Projects: 'd_projects'
-  Contact: 'e_contact'
+  About: 'about'
+  Blog: 'blog'
+  Timeline: 'timeline'
+  Projects: 'projects'
+  Contact: 'contact'
 
 # Exclusion list from the generated _site
 
