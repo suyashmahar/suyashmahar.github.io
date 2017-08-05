@@ -1,0 +1,137 @@
+% resume.tex
+%
+% (c) 2002 Matthew Boedicker <mboedick@mboedick.org> (original author) http://mboedick.org
+% (c) 2003-2007 David J. Grant <davidgrant-at-gmail.com> http://www.davidgrant.ca
+% Modified by Suyash Mahar
+%
+% This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/ or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+
+\documentclass[letterpaper,11pt]{article}
+%-----------------------------------------------------------
+%Margin setup
+
+\setlength{\voffset}{0.1in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\textheight}{11in}
+\setlength{\textheight}{9.5in}
+\setlength{\topmargin}{-0.25in}
+\setlength{\textwidth}{7in}
+\setlength{\topskip}{0in}
+\setlength{\oddsidemargin}{-0.25in}
+\setlength{\evensidemargin}{-0.25in}
+%-----------------------------------------------------------
+%\usepackage{fullpage}
+\usepackage{shading}
+\usepackage[mathletters]{ucs}
+\usepackage[utf8]{inputenc}    % Unicode Characters
+%\textheight=9.0in
+\pagestyle{empty}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+%-----------------------------------------------------------
+% Enables and configures hyperlinks
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{blue(pigment)}{rgb}{0.2, 0.2, 0.6}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue(pigment),
+    filecolor=blue(pigment),      
+    urlcolor=blue(pigment),
+}
+
+%-----------------------------------------------------------
+%Custom commands
+\newcommand{\resitem}[1]{\item #1 \vspace{-2pt}}
+\newcommand{\resheading}[1]{{\large \parashade[.9]{sharpcorners}{\textbf{#1 \vphantom{p\^{E}}}}}}
+\newcommand{\ressubheading}[4]{
+\begin{tabular*}{6.5in}{l@{\extracolsep{\fill}}r}
+		\textbf{#1} & #2 \\
+		\textit{#3} & \textit{#4} \\
+\end{tabular*}\vspace{-6pt}}
+%-----------------------------------------------------------
+
+% Uncomment following line to change font to sans-serif
+% \renewcommand{\familydefault}{\sdefault}
+
+\begin{document}
+% Uncomment following lines to add title and separating line
+% \addtolength{\topmargin}{-.3in}
+% \begin{center}
+%     \vspace{-6cm}
+%     {\Huge \textbf{R\'esum\'e}}
+%     \noindent\makebox[\linewidth]{\rule{\linewidth}{0.4pt}}
+% \end{center}
+
+\begin{tabular*}{7in}{l@{\extracolsep{\fill}}r}
+\textbf{\Large Suyash Mahar}             & +91-7579106878   \raisebox{-0.7mm}{\includegraphics[scale=0.08]{images/phone.png}}\\
+A-140, Rajiv Bhawan                      & \href{mailto:contact@suyashmahar.me}{contact@suyashmahar.me}  \raisebox{-0.7mm}{\includegraphics[scale=0.08]{images/envelope.png}}️\\
+Indian Institute of Technology, Roorkee  & \href{https://github.com/suyashmahar}{github.com/suyashmahar} \raisebox{-0.7mm}{\includegraphics[scale=0.9]{images/github_large.png}} \\
+Roorkee, India -- \textit{247667}        & \href{http://suyashmahar.me}{suyashmahar.me} \raisebox{-0.7mm}{\includegraphics[scale=0.08]{images/world.png}} \\
+\end{tabular*}
+
+\vspace{0.1in}
+
+\resheading{Education}
+\begin{itemize}
+\item
+	\ressubheading{Indian Institute of Technology, Roorkee}{Roorkee, India}{B.Tech., Electronics and Communication Engineering (GPA: 9.149/10)}{July 2016 - Present}
+	\begin{itemize}
+		\resitem{\textit{Coursework includes}: Computer Architecture, Digital Logic Design, Data Structures \& Algorithms.}
+	\end{itemize}
+\end{itemize}
+
+\resheading{Experience}
+\begin{itemize}
+\item
+	\ressubheading{Digital Electronics Laboratory} {IIT Roorkee, India}{Short term project}{May 2016 - June 2016}
+	\begin{itemize}
+    \resitem{Studied and implemented CORDIC algorithms on FPGA.}
+    \resitem{Used Python (Jupyter notebook) for modeling and Verilog for design and implementation.}
+	\end{itemize}
+
+
+\end{itemize}
+
+\resheading{Awards and Achievements}
+\begin{itemize}
+	\item{ \textbf{International Cyber Olympiad (SilverZone)}  \hfill \textit{Dec. 2014}  \\ 
+	\textit{Olympiad Rank 11, State Rank 1}}\\ 
+	
+	\item{ \textbf{Joint Entrance Examination, Advanced (Indian Institute of Technology)}  \hfill \textit{May 2016}  \\ 
+	\textit{All India Rank 1387, 99.3 percentile}}\\ 
+	
+	\item{Dedicated member award, National Service Scheme (IIT Roorkee)}  \hfill \textit{April 2017}  \\ 
+	
+
+
+\end{itemize}
+	
+%\end{tabular*}
+
+\resheading{Skills}
+
+    \begin{itemize}
+    \setlength\itemsep{0.1em}
+    	\item[] \textbf {Languages:} C++, (System)Verilog,  C\#/VB.NET, \LaTeX, Java, Bash
+    	\item[] \textbf{Applications:} MatLab, Vivado,  Visual Studio 2017, Android Studio, Jupyter notebooks
+    	\item[] \textbf{Languages:} English, Hindi
+    \end{itemize}
+
+\resheading{Interests}
+    
+    \begin{itemize}
+    \setlength\itemsep{0.1em}
+    	\item[] \textbf {Academic:} Computer Architecture, Digital logic design, FPGA applications, Operating systems.
+    	\item[] \textbf {Computers:} Currently maintains two applications on GitHub (Android and Windows).
+    % 	\item[] \textbf{Campus Groups:} Active member of \href{https://mdg.sdslabs.co/}{Mobile Development Group} and Astronomy Club.
+    	\item[] \textbf{Campus Groups:} Active member of Mobile Development Group and Astronomy Club.
+    \end{itemize}
+\end{document}
