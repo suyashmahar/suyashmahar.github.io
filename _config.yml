@@ -42,7 +42,7 @@ favicon: "/img/favicon.ico"
 black-favicon: "/img/black-lab-glass.ico"
 
 #background-img: "../img/key-bg.png"
-background-img: "http://wallpapercave.com/wp/CzGHDay.jpg"
+background-img: "/img/bg-intro.jpg"
 
 ##############################
 # Dynamic Text on the Header #
