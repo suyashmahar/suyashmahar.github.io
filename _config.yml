@@ -58,7 +58,7 @@ delete-delay: 5000
 lines: # You can add HTML Tags in the Text
   - text: "The lower you fall, the higher you'll fly."
 
-me-img: "/img/author.png"
+me-img: "/img/pic.png"
 
 ##############################
 # Color the browser elements #
