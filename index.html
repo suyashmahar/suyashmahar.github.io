@@ -1,9 +1,144 @@
----
-layout: index
-section-type: index
-sitemap:
-  priority: 1.0
----
-<!--
-If you want to have a static message in your intro layout, disable the dynamic-typing in the _config.yml and write here your text
--->
+<!DOCTYPE html>
+<html lang="en">
+  <head>    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
+    <title>Suyash Mahar</title>
+  </head>
+
+  <body>
+    <!--Content starts here-->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding-left: 10%; padding-right: 10%;">
+      <a class="navbar-brand" style="padding-left: 1px;" href="#">Suyash Mahar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+	<span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+	<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+	  <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="#project_head">Projects</a>
+	  </li>
+	  <li class="nav-item">
+            <a class="nav-link" href="#contact_info_head">Contact info</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" href="./resources/resume.pdf">Resume</a>
+	  </li>
+	</ul>
+      </div>
+    </nav>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+	<h1 class="display-3">About me</h1>
+	<p class="lead">I'm a second year undergraduate in electronics and communication engineering at <a href="http://iitr.ac.in" target="_blank" class="alert-link" style="font-weight:normal;">IIT Roorkee</a> with interest in <a href="https://en.wikipedia.org/wiki/Heterogeneous_computing" style="font-weight:normal;" target="_blank" class="alert-link">heterogeneous computing</a>, <a href="https://www.pcmag.com/encyclopedia/term/40139/computer-architecture" target="_blank" style="font-weight:normal;">computer architecture</a> and <a href="https://fpgainfinance.com/what-are-fpgas/" target="_blank" style="font-weight:normal;">FPGA</a> based accelerators. My r&#xe9;sum&#xe9; is available <a href="./resources/resume.pdf" class="alert-link" target="_blank" style="font-weight:normal;">here</a>.</p>
+      </div>
+    </div>
+    <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top: 2%";> 
+      <div class="col-md-8">
+	
+	<p/> 
+	<h1 class="bd-title" id="project_head">Projects</h1>
+	<p/>
+	I have worked in past on FPGA based <a href="https://en.wikipedia.org/wiki/Forwarding_information_base" target="_blank" style="font-weight:normal;">FIB</a> lookups in <a href="https://en.wikipedia.org/wiki/Named_data_networking" target="_blank" style="font-weight:normal;">Named Data Network</a>, which included search and implementation of efficient data-structure. Apart from these I have hosted a few hobby projects at my <a href="https://github.com/suyashmahar" target="_blank" style="font-weight:normal;">GitHub profile</a>. 
+	<div id="accordion" role="tablist">
+	  <div class="card">
+	    <div class="card-header" role="tab" id="headingOne">
+	      <h5 class="mb-0">
+		<a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+		  Trianglify
+		</a>
+	      </h5>
+	    </div>
+
+	    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+	      <div class="card-body">
+		<img class="card-img-top" src="https://raw.githubusercontent.com/sdsmdg/trianglify/develop/resources/splash.png" alt="Trianglify poster">
+		<p class="card-text">Trianglify is an Android library that helps creates views with beautiful patterns. Trianglify is based on MVP architecture and licensed under MIT license.</p>
+		<a href="http://bit.ly/trianglifyDemo" class="btn btn-primary" target="_blank">GooglePlay Demo</a>
+		<a href="https://github.com/sdsmdg/trianglify" class="btn btn-primary"  target="_blank">GitHub</a>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="card">
+	    <div class="card-header" role="tab" id="headingTwo">
+	      <h5 class="mb-0">
+		<a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+		  Pine
+		</a>
+	      </h5>
+	    </div>
+	    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+	      <div class="card-body">
+		<p class="card-text"><img src="./img/pine-tree.png" alt="pine tree" width="32px"/> Hassle free .gitignore manager.</p><a href="https://github.com/suyashmahar/pine" class="btn btn-primary"  target="_blank">GitHub</a>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="card">
+	    <div class="card-header" role="tab" id="headingThree">
+	      <h5 class="mb-0">
+		<a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+		  RISC processor
+		</a>
+	      </h5>
+	    </div>
+	    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+	      <div class="card-body">
+		<p class="card-text">Basic implementation of a 32-bit single core unpipelined RISC processor written in Verilog. This is a hobby project to understand how processors and operating systems work.</p><a href="https://github.com/suyashmahar/RISC-processor" class="btn btn-primary"  target="_blank">GitHub</a>
+		
+	      </div>
+	    </div>
+	  </div>
+	</div>
+      </div>
+      
+      <div class="col-md-4">
+	<center>
+	  <img src="./img/pic.png" alt="author_image" class="img-thumbnail" style="width: 220px; margin-top: 3%">
+	  <p>
+	    <h3 class="bd-title" id="contact_info_head">Contact info</h3>  
+	</center>
+	
+	<div style = "text-align: center; margin-left: 10%; margin-right: 10%">
+	  <div style = "display: inline-block; text-align: left;">
+	    <table style="width:100%;">
+	      <tr>
+		<td><img src="./img/email-box.svg" alt="email"></td>
+		<td><a target="_blank" href="#" class="alert-link" href="mailto:contact@suyashmahar.me">contact@suyashmahar.me</a></td>
+	      </tr>
+	      <tr>
+		<td><img src="./img/github-box.svg" alt="email"></td>
+		<td><a target="_blank" class="alert-link" href="https://github.com/suyashmahar">github/suyashmahar</a></td>
+	      </tr>
+	      <tr>
+		<td><img src="./img/location-box.svg" alt="location"></td>
+		<td>A-140, Rajiv Bhawan</td>
+	      </tr>
+	      <tr>
+		<td></td>
+		<td>IIT Roorkee</td>
+	      </tr>
+	    </table>
+	  </div>
+	</div>
+	
+      </div>
+    </div>
+    <footer class="footer">
+      <center>
+	<p/>
+	<hr style="padding-left:10%;padding-right=10%;">
+	<p style="color: #777;">&#xa9; 2018 Suyash Mahar<p/>
+	<p/>
+      </center>
+    </footer>
+    <!--Content ends here-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/js/bootstrap-material-design.js" integrity="sha384-3xciOSDAlaXneEmyOo0ME/2grfpqzhhTcM4cE32Ce9+8DW/04AGoTACzQpphYGYe" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+  </body>
