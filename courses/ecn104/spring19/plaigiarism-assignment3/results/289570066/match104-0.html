@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE>18116005/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116005/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match104-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+module fifo(clk, reset, rd, wr, w_data, r_data, full, empty);
+input clk,reset,rd,wr;
+input [7:0] w_data;
+output reg [7:0] r_data;
+output reg full, empty;
+integer read_point, write_point;
+reg [7:0] queue [7:0];
+</FONT>
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match104-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+always @(posedge clk)
+begin
+
+  if(reset==1)
+  begin
+   empty=1;
+   full=0;
+   read_point=-1;
+   write_point=-1;
+</FONT>  end
+  
+  else
+  begin
+  if(rd==1 && empty==0)
+  begin
+  r_data=queue[read_point];
+  full=0;
+  if(read_point==write_point)
+  begin
+   read_point=-1;
+   write_point=-1;
+   empty=1;
+  end 
+  else
+    read_point=(read_point+1)%8;
+  end 
+   
+   
+  if(wr==1 && full==0)
+  begin
+  if(read_point&lt;0)
+  begin
+    read_point=0;
+    write_point=0;
+    empty=0;
+  end
+ write_point=(write_point+1)%8;
+ queue[write_point]=w_data;
+  if(write_point==7 && read_point==0)
+    full=1;
+  if(read_point==(write_point+1))
+    full=1;
+ end
+ 
+end
+end
+
+
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+module fifo_tb;
+reg clk,rd, wr, reset;
+reg [7:0] w_data;
+wire full, empty;
+wire [7:0] r_data;
+fifo uut(.reset(reset), .clk(clk), .rd(rd), .r_data(r_data), .wr(wr), .full(full), .empty(empty), .w_data(w_data));
+initial begin
+clk = 1'b0;
+w_data= 8'h0;
+wr=1'b0;
+rd=1'b0;
+reset=1'b1;
+#20
+reset=1'b0;
+wr=1'b1;
+w_data=8'h1;
+#10
+w_data=8'h2;
+#10
+w_data=8'h3;
+#10
+w_data=8'h4;
+#10
+w_data=8'h5;
+#10
+w_data=8'h6;
+#10
+w_data=8'h7;
+#10
+w_data=8'h0;
+#10
+wr= 1'b0;
+rd= 1'b1;
+end
+always #5 clk= ~clk;
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

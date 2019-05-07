@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<TITLE>18116013/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116019/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match8-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_99.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+`timescale 1ns/1ps
+
+module solution_1();
+endmodule
+
+module fifo(ghadi,reset,rd,wr,w_data,r_data,emptyqueue,fullqueue);
+input reset,rd,wr,ghadi;
+input [8-1:0] w_data;
+output fullqueue,emptyqueue;
+output reg [8-1:0] r_data;
+reg[3-1:0] count , r_head, w_head ;
+reg [8-1:0] queue [8-1:0] ;
+assign fullqueue = (count==7)? 1'b1:1'b0;
+assign emptyqueue = (count==0)? 1'b1:1'b0;
+initial begin
+count = 0;
+r_head = 7;
+w_head = 7 ;
+end
+always @ (posedge ghadi) begin
+if (reset) begin
+r_head = 7;
+w_head = 7;
+count = 0;
+end
+else if(wr) begin
+if(!fullqueue) begin
+queue[w_head] = w_data;
+w_head = w_head - 1;
+count = count+1;
+end
+end
+else if(rd) begin
+if(!emptyqueue) begin
+r_data = queue[r_head];
+r_head = r_head - 1;
+count = count - 1;
+end
+end
+if(w_head == -1) w_head = 7;
+if(r_head == -1) r_head= 7;
+end
+endmodule&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+
+module tb_1();
+endmodule
+module fifo_tb;
+reg ghadi,wr,rd,reset;
+reg [8-1:0] w_data;
+wire fullqueue,empty;
+wire [8-1:0] r_data;
+fifo q1(v,reset,rd,wr,w_data,r_data,empty,fullqueue);
+initial ghadi = 1;
+always #10 ghadi = ~ghadi;
+initial begin
+reset = 0;
+rd=0;
+wr=0;
+w_data = 0;
+#20
+wr=1;
+#650
+reset = 1;
+#100
+reset=0;
+end
+always #20 w_data = w_data+1;
+always #200 begin
+wr = ~ wr;
+rd = ~ rd ;
+</FONT>end
+endmodule</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,206 @@
+<HTML>
+<HEAD>
+<TITLE>18116020/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116043/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04/20/2019 01:12:53 AM
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo(clk,reset,rd,wr,w_data,r_data,empty,full);
+input clk,reset,rd,wr;
+input [7:0]w_data;
+output reg [7:0]r_data;
+output reg full,empty;
+integer front,rear;
+reg [7:0]cq[7:0];
+initial
+ begin
+ full=0;
+ empty=1;
+ front=-1;
+ rear=-1;
+ cq[7]=8'b00000000;
+ cq[6]=8'b00000000;
+ cq[5]=8'b00000000;
+ cq[4]=8'b00000000;
+ cq[3]=8'b00000000;
+ cq[2]=8'b00000000;
+ cq[1]=8'b00000000;
+ cq[0]=8'b00000000;
+ 
+ end
+ always@(posedge clk)
+ begin
+ if(reset==1)
+ begin
+ full=0;
+ empty=1;
+ front=-1;
+ rear=-1;
+ cq[7]=8'b00000000;
+ cq[6]=8'b00000000;
+ cq[5]=8'b00000000;
+ cq[4]=8'b00000000;
+ cq[3]=8'b00000000;
+ cq[2]=8'b00000000;
+ cq[1]=8'b00000000;
+ cq[0]=8'b00000000;
+ end
+ if(wr==1)
+ begin
+      if(full!=1)
+      begin
+           if((front==0)&&(rear==7))
+           begin
+                 full=1;
+           end
+           else if (front&lt;0)
+           begin
+           front=0;
+           rear=0;
+           cq[rear]=w_data;
+           empty=0;
+           end
+           else if(rear==7)
+           begin
+           rear=0;
+           cq[rear]=w_data;
+           empty=0;
+           end
+           else
+           begin
+           rear=rear+1;
+           if(rear==front)
+           begin
+           full=1;
+           rear=rear-1;
+           end
+           else
+           begin
+           cq[rear]=w_data;
+           empty=0;
+           end
+           end
+
+           
+       end    
+
+ 
+ end
+ if(rd==1)
+ begin
+      if(empty!=1)
+      begin
+           if (front==-1)
+           begin
+           empty=0;
+           end
+           else
+           begin
+           r_data=cq[front];
+           full=0;
+           end
+           if(front==rear)
+           begin
+           r_data=cq[front];
+           front=-1;
+           rear=-1;
+           empty=1;
+           full=0;
+           end
+           else if(front==7)
+           begin
+           r_data=cq[front];
+           front=0;
+           full=0;
+           end
+           else
+           begin
+           r_data=cq[front];
+           front=front+1;
+           full=0;
+           end
+      end
+ end
+ end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04/20/2019 01:17:23 AM
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo_tb();
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match230-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reg clk,reset,rd,wr;
+reg [7:0] w_data;
+wire [7:0] r_data;
+wire full,empty;
+fifo uut(.clk(clk),.reset(reset),.rd(rd),.wr(wr),.w_data(w_data),.r_data(r_data),.full(full),.empty(empty));
+</FONT>initial
+begin
+clk=1'b0;
+reset=1'b0;
+rd=1'b0;
+wr=1'b0;
+w_data=8'b00000000;
+forever
+begin
+#10
+clk=clk+1;
+end
+end
+always begin
+#20
+rd=rd+1;
+end
+always begin
+#30
+wr=wr+1;
+w_data=w_data+1;
+end
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

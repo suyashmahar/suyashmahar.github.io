@@ -1,0 +1,176 @@
+<HTML>
+<HEAD>
+<TITLE>18117047/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18117047/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match0-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 15.04.2019 21:39:17
+// Design Name: 
+// Module Name: solution_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo #(parameter B=8,W=4)
+(input wire clk,reset,rd,wr,
+input wire [B-1:0] w_data,
+output wire empty,full,
+</FONT>output wire [B-1:0] r_data
+);
+reg [B-1:0] array_reg [2**W-1:0];
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match0-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reg [W-1:0] write_ptr_register, write_ptr_next, write_ptr_succ;
+reg [W-1:0] read_ptr_register, read_ptr_next, read_ptr_succ;
+</FONT>reg full_reg, empty_reg, full_next, empty_next;
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match0-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_17.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+wire wr_en;
+//write operation
+always @ (posedge clk)
+    if(wr_en)
+        array_reg[write_ptr_register]&lt;=w_data;
+//read operation
+assign r_data = array_reg[read_ptr_register];
+assign wr_en = wr&~full_reg;
+always @ (posedge clk, posedge reset)
+    if(reset)
+        begin
+            write_ptr_register &lt;=0;
+            read_ptr_register &lt;=0;
+            full_reg &lt;= 1'b0;
+            empty_reg &lt;= 1'b1;
+        end
+    else
+        begin
+            write_ptr_register &lt;= write_ptr_next;
+            read_ptr_register &lt;= read_ptr_next;
+            full_reg &lt;=full_next;
+            empty_reg &lt;= empty_next;
+        end
+always @ *
+begin
+    write_ptr_succ = write_ptr_register + 1;
+</FONT>    read_ptr_succ = read_ptr_register + 1;
+    write_ptr_next = write_ptr_register;
+    read_ptr_next = read_ptr_register;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match0-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_58.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    full_next = full_reg;
+    empty_next = empty_reg;
+    case({wr,rd})
+        2'b01:
+            if(~empty_reg)
+                begin
+                    read_ptr_next = read_ptr_succ;
+                    full_next = 1'b00;
+                    if(read_ptr_succ==write_ptr_register)
+                        empty_next=1'b1;
+                end
+        2'b10:
+            if(~full_reg)
+                begin
+                    write_ptr_next=write_ptr_succ;
+                    empty_next= 1'b0;
+                    if(write_ptr_succ==read_ptr_register)
+                        full_next = 1'b1;
+                end
+        2'b11:
+            begin
+                write_ptr_next = write_ptr_succ;
+                read_ptr_next = read_ptr_succ;
+            end
+        endcase
+   end
+assign full=full_reg;
+assign empty=empty_reg;
+endmodule&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 19.04.2019 15:44:30
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo_tb();
+reg clk,reset,wr,rd;
+reg [7:0] w_data;
+wire [7:0] r_data;
+wire empty,full;
+integer i=0;
+fifo uut(.clk(clk),.reset(reset),.wr(wr),.rd(rd),.w_data(w_data),.r_data(r_data),.empty(empty),.full(full));
+initial begin
+clk=0;
+reset = 0;
+wr=1;
+rd=0;
+w_data=0;
+forever
+    begin
+    #3 clk=clk+1;
+    #7
+    if(i%15==0&&i&gt;20)
+        begin
+        reset=1;
+        rd=0;
+        wr=0;
+     end
+    else
+    if(i&lt;8||i%3==0||i&3==1)
+    begin
+        reset=0;
+        wr=1;
+        rd=0;
+        w_data=w_data+1;
+     end
+     else
+     if(i%3==2)
+     begin
+        reset=0;
+        rd=1;
+        wr=0;
+     end
+     i=i+1;
+     end
+     end
+     
+
+endmodule
+</FONT></PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,232 @@
+<HTML>
+<HEAD>
+<TITLE>18116062/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116062/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 19.04.2019 15:13:51
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo(clk, reset, rd, wr, w_data, r_data, empty, full);
+
+input clk, reset, rd, wr ;
+input [0:7] w_data ;
+output reg empty, full ;
+output reg [0:7] r_data ;
+
+reg [0:7] arr [0:7] ;
+integer front, rear;
+
+initial begin
+    front = 10 ;
+    rear = 20 ;
+    empty = 1 ;
+    full = 0 ;
+    
+    arr[0] = 8'b00000000 ;
+    arr[1] = 8'b00000000 ;
+    arr[2] = 8'b00000000 ;
+    arr[3] = 8'b00000000 ;
+    arr[4] = 8'b00000000 ;
+    arr[5] = 8'b00000000 ;
+    arr[6] = 8'b00000000 ;
+    arr[7] = 8'b00000000 ;
+end
+
+always @(posedge clk)
+begin
+    
+    if (reset == 1)
+    begin
+        front = 10 ;
+        rear = 20 ;
+        empty = 1 ;
+        full = 0 ;
+    
+        arr[0] = 8'b00000000 ;
+        arr[1] = 8'b00000000 ;
+        arr[2] = 8'b00000000 ;
+        arr[3] = 8'b00000000 ;
+        arr[4] = 8'b00000000 ;
+        arr[5] = 8'b00000000 ;
+        arr[6] = 8'b00000000 ;
+        arr[7] = 8'b00000000 ;
+    end
+    
+    else
+    begin
+    
+    if ((rear == 7 && front == 0) || (rear == front - 1))
+    begin
+        full = 1 ;
+    end
+    
+    else
+    begin
+        full = 0 ;
+    end
+    
+    if (front &gt; 8)
+    begin
+        empty = 1 ;
+    end
+    
+    else
+    begin
+        empty = 0 ;
+    end
+    
+    if ((wr == 1) && (full == 0))
+    begin
+        empty = 0;
+        
+        if (front &gt; 8)
+        begin
+            front = 0 ;
+            rear = 0 ;
+            arr[0] = w_data ;
+        end
+        
+        else if (rear == 7)
+        begin
+            rear = 0 ;
+            arr[0] = w_data ;
+        end
+        
+        else
+        begin
+            rear = rear + 1 ;
+            arr[rear] = w_data ;
+        end
+    end
+    
+    else if ((wr == 1) && (full == 1))
+    begin
+        
+    end
+    
+    if ((rd == 1) && (empty == 0))
+    begin
+        if (front == 7)
+        begin
+            r_data = arr[7] ;
+            arr[7] = 8'b00000000 ;
+            front = 0 ;
+        end
+        
+        else if (front==rear)
+        begin
+            r_data = arr[front] ;
+            arr[front] = 8'b00000000 ;
+            front = 10 ;
+            rear = 20 ;
+            empty = 1 ;
+        end
+        
+        else
+        begin
+            r_data = arr[front] ;
+            arr[front] = 8'b00000000 ;
+            front = front + 1 ;
+        end
+    end
+    
+    else if ((rd == 1) && (empty == 1))
+    begin
+        
+    end
+    
+    end
+    
+end
+
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match246-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 19.04.2019 19:39:38
+// Design Name: 
+// Module Name: fifo_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo_tb();
+
+reg clk, reset, rd, wr ;
+reg [0:7] w_data ;
+wire [0:7] r_data ;
+</FONT>wire full, empty ;
+
+fifo f(.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .r_data(r_data), .empty(empty), .full(full)) ;
+
+initial begin
+    clk = 1'b0 ;
+    reset = 1'b0 ;
+    rd = 1'b0 ;
+    wr = 1'b0 ;
+    w_data = 8'b00000000 ;
+    
+    forever begin
+        #10
+        wr = 1 ;
+        #10
+        wr = 1 ;
+        #10
+        wr = 0 ;
+        rd = 1 ;
+        #10
+        wr = 1 ;
+        rd = 1 ;
+        #10
+        wr = 0 ;
+        rd = 0 ;
+    end
+end
+
+always begin
+    #10 clk = clk + 1 ;
+    w_data = w_data + 1 ;
+end
+
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

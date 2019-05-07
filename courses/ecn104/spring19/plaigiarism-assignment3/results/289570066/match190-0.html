@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<TITLE>18116060/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116060/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 15:49:06
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo(clk,reset,rd,wr,w_data,r_data,empty,full);
+input clk,rd,wr,reset;
+input [8-1:0] w_data;
+output empty,full;
+output reg[8-1:0] r_data;
+reg[3-1:0] count = 0;
+reg[32-1:0] cqdata[0:8-1];
+reg[3-1:0] rc =0, wc=0;
+assign empty = (count==0)?1'b1:1'b0;
+assign full = (count==8)?1'b1:1'b0;
+
+always @(posedge clk)
+begin 
+if(reset) begin
+rc=0;
+wc=0;
+end 
+else if(rd==1'b1 && count !=0)
+begin
+ r_data = cqdata[rc];
+ rc = rc+1;
+ //rc= rc%8;
+ end
+ else if(wr==1'b1 && count &lt;8 )
+ begin 
+ cqdata[wc] = w_data;
+ wc = wc +1;
+ //wc =wc%8;
+ end
+ if(wc ==8)
+  wc =0;
+  else
+  if(rc==8)
+  rc=0;
+ else
+ if(rc&gt;wc)
+ begin
+ count =rc - wc;
+end
+else
+if(wc&gt;rc)
+begin
+count = wc- rc;
+end
+end
+endmodule
+
+
+`timescale 1ns / 1ps
+
+module fifo_tb;
+reg clk;
+reg[8-1:0] w_data;
+reg rd, wr, reset;
+wire[8-1:0] r_data;
+wire empty, full;
+
+fifo uut(.clk(clk),.reset(reset),.rd(rd),.wr(wr),.w_data(w_data),.r_data(r_data),.empty(empty),.full(full));
+
+initial begin 
+clk = 1'b0;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match190-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+w_data = 8'b0;
+rd = 1'b0;
+wr= 1'b0;
+reset = 1'b1;
+ #100;
+ reset = 1'b0;
+ wr = 1'b1;
+ w_data = 8'b0;
+</FONT> #50
+ w_data = 8'b1;
+ #50
+ w_data = 8'b10;
+ # 50
+ w_data = 8'b11;
+ # 50
+ w_data = 8'b100;
+ //# 25
+ //w_data = 8'b101;
+ //# 25
+ //w_data = 8'b110;
+ # 50
+ //w_data = 8'b111;
+ //# 25
+ wr=1'b0;
+ rd = 1'b1;
+ end
+ always #10 clk = ~clk;
+endmodule&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 16:59:32
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module tb_1(
+
+    );
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

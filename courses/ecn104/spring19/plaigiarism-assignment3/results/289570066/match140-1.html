@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE>18116005/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116007/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match140-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+module fifo(clk, w_data, rd, wr, r_data, reset,empty, full ); 
+
+input  clk, rd, wr, reset;
+input [7:0] w_data;
+output  empty, full;
+</FONT>output reg [7:0] r_data;
+ 
+reg [7:0] FIFO [7:0]; 
+integer r_counter = 0, w_counter = 0; 
+integer  Count = 0;
+
+assign empty = (Count==0)? 1'b1:0;  assign full = (Count==8)? 1:1'b0; 
+always @ (posedge clk) begin 
+  begin 
+  if (reset) begin 
+  r_counter = 1'b0; 
+  w_counter = 0; 
+  end 
+  else if (rd ==1 && Count!=1'b0) begin 
+ r_data  = FIFO[r_counter] ; 
+ r_counter = r_counter+1  ; 
+  end 
+  else if (wr==1'b1 && Count&lt;8) begin
+   FIFO[w_counter]  = w_data; 
+   w_counter  = w_counter+1; 
+  end 
+  else; 
+ end 
+
+ if (w_counter==8) w_counter=0; 
+ else if (r_counter==8) r_counter=0; 
+ else;
+ if (r_counter &gt; w_counter) begin Count=r_counter-w_counter  ; 
+ end 
+else if (w_counter &gt; r_counter) Count=w_counter-r_counter ; 
+else;
+end 
+endmodule
+
+
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+module fifo_tb;
+reg clk ,rd;
+reg [7:0] w_data;
+reg wr ,reset;
+wire [7:0] r_data ;
+wire empty ,full  ;
+
+fifo uut(.clk(clk), .w_data(w_data),.rd(rd), .wr(wr),.r_data(r_data),.reset(reset),.empty(empty),.full(full));
+ initial begin
+clk  = 0  ;
+w_data  = 8'h0  ;
+rd  = 0 ;
+wr  = 1'b0 ;
+reset  =  1 ;
+#50;        
+reset  = 1'b1;
+ #20;
+reset  = 0 ;
+wr  = 1'b1;
+w_data  = 8'h0;
+#20;
+w_data  = 8'h1  ;
+#20;
+w_data  = 8'h2 ;
+ #20;
+w_data  = 8'h3 ;
+ #20;
+w_data  = 8'h4;
+#20;
+w_data  = 8'h5;
+#20;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match140-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+w_data  = 8'h6;
+#20
+w_data  = 8'h7;
+#20
+ wr = 1'b0 ;
+rd = 1'b1 ;  
+end 
+always #10 clk = ~clk ;    
+</FONT>endmodule</PRE>
+</PRE>
+</BODY>
+</HTML>

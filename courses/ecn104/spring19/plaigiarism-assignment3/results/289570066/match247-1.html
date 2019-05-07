@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE>18116047/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18118063/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+module fifo(clk, reset, rd, wr, w_data, r_data, empty, full);
+input clk, reset, rd, wr;
+input [7:0]w_data;
+output reg [7:0]r_data;
+output reg empty, full;
+
+reg [7:0]que[7:0];
+integer count=0;
+integer wptr=0, rptr=0;
+
+initial begin
+assign empty=1'b1;
+assign full=1'b0;
+end
+
+always @(posedge clk) begin
+
+if(reset) begin
+wptr=0;
+rptr=0;
+count=0;
+assign empty=1'b1;
+assign full=1'b0;
+end
+
+else begin 
+
+if(wr&&count&lt;9) begin
+que[wptr]=w_data;
+wptr=(wptr+1)%8;
+count=count+1;
+assign empty=1'b0;
+end
+
+if(rd&&count!=0)  begin
+assign r_data=que[rptr];
+rptr=(rptr+1)%8;
+count=count-1;
+end
+
+if(count==0) begin
+assign empty=1'b1;
+end
+if(count==8) begin
+assign full=1'b1;
+end
+else begin
+assign full=1'b0;
+end
+end
+end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+////////////////////////////////////////////////////////////////////////////////// 
+module fifo_tb();
+reg clk,reset,rd,wr;
+reg [7:0]w_data;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match247-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+wire empty,full;
+wire [7:0]r_data;
+fifo f1(.clk(clk),.reset(reset),.rd(rd),.wr(wr),.w_data(w_data),.r_data(r_data),.empty(empty),.full(full));
+</FONT>initial begin
+clk=1'b0;
+reset=1'b1;
+rd=1'b0;
+wr=1'b0;
+w_data=8'b00000000;
+#10 reset=1'b0; 
+#10 wr=1'b1; rd=1'b0;
+#100 wr=1'b0; rd=1'b1; 
+#60 wr=1'b1; rd=1'b1; 
+#200 wr=1'b1; rd=1'b0;
+#160 rd=1'b0;wr=1'b0;
+#60 reset=1'b1;
+
+
+
+end
+always #15 w_data=w_data+1;
+always #10 clk=~clk;
+
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

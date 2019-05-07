@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<TITLE>18112069/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18112069/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04/21/2019 08:00:22 PM
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo(clk,reset,rd,wr,w_data,r_data,empty,full);
+input clk,reset,rd,wr;
+input [0:7]w_data;
+output reg empty,full;
+output reg [0:7]r_data;
+integer i,front,rear;
+reg [0:7]stack[0:7];
+initial begin
+i=0;
+stack[0]=-1;
+stack[1]=-1;
+stack[2]=-1;
+stack[3]=-1;
+stack[4]=-1;
+stack[5]=-1;
+stack[6]=-1;
+stack[7]=-1;
+front=-1;
+rear=-1;
+empty=1;
+full=0;
+end
+always @(posedge clk)
+begin
+if(rd==1&&empty==0)
+begin
+if(front==rear)
+begin
+r_data=stack[front];
+i=i-1;
+full=0;
+stack[front]=-1;
+front=-1;
+rear=-1;
+end
+else begin
+r_data=stack[front];
+i=i-1;
+front=front+1;
+end
+if(front==7)
+begin
+r_data=stack[front];
+i=i-1;
+full=0;
+stack[front]=-1;
+front=0;
+end
+if(front&lt;0)
+begin
+empty=1;
+end
+end
+if(rd==1&&empty==0)
+begin
+if(front==7)
+begin
+r_data=stack[front];
+i=i-1;
+full=0;
+stack[front]=-1;
+front=0;
+end
+if(front==rear)
+begin
+r_data=stack[front];
+i=i-1;
+stack[front]=-1;
+front=front+1;
+end
+if(front&lt;0)
+begin
+empty=1;
+end
+end
+if(wr==1&&full==0)
+begin
+if(front==-1)
+begin
+rear=0;
+stack[rear]=w_data;
+end
+end
+if(reset==1)
+begin
+i=0;
+stack[0]=-1;
+stack[1]=-1;
+stack[2]=-1;
+stack[3]=-1;
+stack[4]=-1;
+stack[5]=-1;
+stack[6]=-1;
+stack[7]=-1;
+front=-1;
+rear=-1;
+empty=1;
+full=0;
+end
+end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04/21/2019 08:49:17 PM
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module tb_1();
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match239-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reg input1,input2,input3,input4;
+reg [0:7]in_data;
+wire [0:7]out_data;
+wire output1,output2;
+fifo f(.clk(input1),.reset(input2),.rd(input4),.rd(input3),.w_data(in_data),.r_data(out_data),.empty(output1),.full(output2));
+</FONT>initial begin
+input1=1'b0;
+input2=1'b0;
+input3=1'b0;
+input4=1'b0;
+in_data=8'b00000000;
+forever begin
+#10 input3=input3+11;
+input4=input4+1;
+end
+end
+always begin
+#10 input1=~input1;
+in_data=in_data+8'b00000001;
+end
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

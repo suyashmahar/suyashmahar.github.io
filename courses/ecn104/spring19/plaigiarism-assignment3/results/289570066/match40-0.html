@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<TITLE>18116005/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116005/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match40-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_14.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+module fifo(clk, reset, rd, wr, w_data, r_data, full, empty);
+input clk,reset,rd,wr;
+input [7:0] w_data;
+output reg [7:0] r_data;
+output reg full, empty;
+integer read_point, write_point;
+reg [7:0] queue [7:0];
+
+always @(posedge clk)
+begin
+
+  if(reset==1)
+</FONT>  begin
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match40-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+   empty=1;
+   full=0;
+   read_point=-1;
+   write_point=-1;
+  end
+  
+  else
+  begin
+  if(rd==1 && empty==0)
+  begin
+  r_data=queue[read_point];
+  full=0;
+</FONT>  if(read_point==write_point)
+  begin
+   read_point=-1;
+   write_point=-1;
+   empty=1;
+  end 
+  else
+    read_point=(read_point+1)%8;
+  end 
+   
+   
+<A NAME="5"></A><FONT color = #FF0000><A HREF="match40-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+  if(wr==1 && full==0)
+  begin
+  if(read_point&lt;0)
+  begin
+    read_point=0;
+    write_point=0;
+    empty=0;
+  end
+</FONT> write_point=(write_point+1)%8;
+ queue[write_point]=w_data;
+  if(write_point==7 && read_point==0)
+    full=1;
+  if(read_point==(write_point+1))
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match40-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    full=1;
+ end
+ 
+end
+end
+
+
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+module fifo_tb;
+reg clk,rd, wr, reset;
+reg [7:0] w_data;
+wire full, empty;
+wire [7:0] r_data;
+fifo uut(.reset(reset), .clk(clk), .rd(rd), .r_data(r_data), .wr(wr), .full(full), .empty(empty), .w_data(w_data));
+</FONT>initial begin
+clk = 1'b0;
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match40-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+w_data= 8'h0;
+wr=1'b0;
+rd=1'b0;
+reset=1'b1;
+#20
+reset=1'b0;
+wr=1'b1;
+w_data=8'h1;
+#10
+w_data=8'h2;
+#10
+w_data=8'h3;
+#10
+w_data=8'h4;
+</FONT>#10
+w_data=8'h5;
+#10
+w_data=8'h6;
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match40-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+#10
+w_data=8'h7;
+#10
+w_data=8'h0;
+#10
+wr= 1'b0;
+rd= 1'b1;
+end
+always #5 clk= ~clk;
+</FONT>endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

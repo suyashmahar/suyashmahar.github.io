@@ -1,0 +1,134 @@
+<HTML>
+<HEAD>
+<TITLE>18116060/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116064/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+
+module fifo(clk,reset,rd,wr,w_data,r_data,empty,full);
+input wire clk,reset,rd,wr;
+integer startp,endp;
+integer element;
+input[8-1:0] w_data;
+output reg [8-1:0] r_data;
+output reg empty,full;
+reg [8-1:0] storage[9-1:0];
+
+
+
+always @( posedge clk) begin
+
+if(reset==1)begin
+for(element=8;element&gt;=0;element=element-1)
+storage[element]="";
+startp=0;
+endp=0;
+
+end
+
+else begin
+
+if(startp==endp) begin
+empty=1;
+r_data="";
+end
+else
+empty = 0;
+
+if(startp==(endp+1)%9 )
+full=1;
+else
+full = 0;
+
+if(rd && !empty) begin 
+startp=(startp+1)%9;
+r_data=storage[startp];
+end
+
+if(wr && !full  ) begin
+endp= (endp+1)%9;
+storage[endp]=w_data;
+end
+
+end
+end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match199-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_9.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+module fifo_tb;
+
+ 
+ reg clock;
+ reg [8-1:0] w_dt;
+ reg read,write,reset;
+ wire [8-1:0] r_dt;
+ wire empty,full;
+
+ 
+
+ fifo a (clock,reset,read,write,w_dt,r_dt,empty,full);
+</FONT>
+ initial begin
+  clock  = 0;
+  w_dt  = "";
+  read  = 0;
+  write  = 0;
+  reset  =1;
+  #50;
+    reset  = 0;
+  
+  #30
+    write  = 1;
+    w_dt  = "w";
+    #30;
+
+  w_dt  = "q";
+
+  #30;
+
+  w_dt  = "7";
+
+  #30;
+
+  w_dt  = "h";
+
+  #30;
+
+  w_dt  = "o";
+
+  #30;
+  
+  w_dt  = "c";
+
+  #30;
+  
+  w_dt  = "m";
+
+  #30;
+  w_dt  = "'";
+
+
+  #30;
+  w_dt  = "p";
+  
+  #30;
+
+  write = 1'b0;
+
+  read = 1'b1;  
+end 
+
+   always #15 clock = ~clock;    
+
+endmodule
+
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

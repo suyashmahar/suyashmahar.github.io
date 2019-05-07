@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<TITLE>18116020/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116082/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 21:32:31
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo( Clk, empty,full,rd ,wr,reset,inp,out );
+  input  Clk, rd,wr, reset;
+
+  output  empty, full;
+
+input   [32-1:0]    inp;
+
+output reg [32-1:0] out;  
+
+reg [3-1:0]  total = 0; 
+
+reg [32-1:0] fifo [0:7]; 
+
+reg [3-1:0]  r_data = 0,  w_data = 0; 
+assign full = (total==8)? 1'b1:1'b0; 
+assign empty = (total==0)? 1'b1:1'b0; 
+always @ (posedge Clk) begin 
+
+if (reset) begin 
+r_data = 0; 
+w_data = 0; 
+end 
+ else if (wr==1'b1 && total&lt;8) begin
+   fifo[w_data]  = inp; 
+w_data=(w_data+1)%8; 
+  end 
+  else if (rd ==1'b1 && total!=0) begin 
+ out  = fifo[r_data]; 
+ r_data = (r_data+1)%8; 
+
+  end 
+
+ if (w_data &gt; r_data)begin 
+total=w_data-r_data; 
+end
+ else  if (r_data &gt; w_data)  
+ total=r_data-w_data; 
+
+else;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match181-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 22:22:18
+// Design Name: 
+// Module Name: fifo_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+module fifo_tb;
+
+ reg Clk,rd,wr,reset;
+ reg [31:0] inp;
+ wire [31:0] out;
+ wire full,empty;
+fifo uut (            
+ .Clk(Clk),
+ .empty(empty), 
+</FONT>  .full(full) ,
+  .reset(reset),
+
+ .inp(inp),  .out(out), 
+   .wr(wr),  .rd(rd) 
+  );
+
+ initial begin
+
+ 
+  Clk  = 1'b0;
+inp  = 32'h0;
+    rd  = 1'b0;
+wr  = 1'b0;
+
+  reset  = 1'b1;
+ #100;        
+reset  = 1'b0;
+ inp  = 32'h1;
+
+  #10;
+  reset  = 1'b0;
+  wr  = 1'b1;
+inp  = 32'h0;
+#10;
+ inp  = 32'h5;
+  wr  = 1'b0;
+  #10;
+ inp  = 32'h8;
+ wr  = 1'b1;
+ #10;
+inp  = 32'h6;
+#10;
+ wr = 1'b0;
+rd = 1'b1;  
+
+ end 
+always #10 Clk = ~Clk;    
+
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

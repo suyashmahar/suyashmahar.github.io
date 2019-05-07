@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE>18116038/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116073/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 19.04.2019 20:56:02
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module fifo (clk,reset,rd,wr,w_data,r_data,empty,full);
+input clk,reset,rd,wr;
+output reg empty,full;
+
+integer front=-1,rear=-1;
+input [0:7] w_data;
+output reg [7:0] r_data;
+reg [0:7] qu [0:7];
+initial begin
+    empty = 1;
+    full = 0;
+    qu[0] = " ";
+    qu[1] = " ";
+    qu[2] = " ";
+    qu[3] = " ";
+    qu[4] = " ";
+    qu[5] = " ";
+    qu[6] = " ";
+    qu[7] = " ";
+end
+always @(posedge clk) begin
+
+if (wr==1) begin
+if ((front==0) && (rear==7)) begin
+    full=1;
+    empty = 0;
+    end
+    
+else if ((front&lt;0)) begin
+    front = 0;
+    rear = 0;
+    qu[front] = w_data;
+    full=0;
+    empty = 0;
+    end
+    
+else if ((rear==7)) begin
+    rear=0;
+    qu[rear]=w_data;
+    empty = 0;
+end    
+    
+else 
+begin
+        rear= rear + 1;
+        if (rear==front)
+        begin
+            full = 1;
+            empty = 0;
+            rear = rear - 1;
+        end
+        else 
+        begin
+            qu[rear] = w_data;
+            empty = 0;
+        end
+    end
+end
+if (rd==1) begin
+if ((front&lt;0)) begin
+    empty = 1;
+    end    
+else begin
+    r_data = qu[rear];
+    empty = 0;
+end        
+end
+else if(reset==1) begin
+    empty = 1;
+    full = 0;
+    qu[0]=" ";
+    qu[1]=" ";
+    qu[2]=" ";
+    qu[3]=" ";
+    qu[4]=" ";
+    qu[5]=" ";
+    qu[6]=" ";
+    qu[7]=" ";    
+end
+end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 20.04.2019 01:30:31
+// Design Name: 
+// Module Name: fifotb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifotb();
+reg clk;
+reg reset;
+reg rd;
+reg wr;
+reg [0:7]w_data;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match226-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+wire [0:7]r_data;
+wire full;
+wire empty;
+fifo uut(.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .r_data(r_data), .full(full), .empty(empty));
+</FONT>initial begin
+clk = 1'b0;
+reset =1'b0;
+rd = 1'b0;
+wr = 1'b0;
+w_data = 8'b00000000;
+forever begin
+#11 wr = 1;
+#11 wr = 1;
+#11 
+    wr = 0;
+    rd = 1;
+#11
+    wr = 1;
+    rd = 1;
+#11
+    wr = 0;
+    rd = 0;
+end
+end
+always begin
+#11 clk = !clk;
+w_data = w_data +1;
+end
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,175 @@
+<HTML>
+<HEAD>
+<TITLE>18116032/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116032/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 20.04.2019 18:52:32
+// Design Name: 
+// Module Name: solution_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo( clk, reset, rd, wr, w_data, r_data, empty, full);
+
+
+input  clk, rd, wr, reset; 
+input [31:0] w_data;
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match76-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+output  empty, full;
+output reg [31:0] r_data;
+
+reg [2:0]  count = 0; 
+
+reg [31:0] arr [0:7]; 
+
+reg [2:0]  read_count = 0, write_count = 0; 
+
+assign full = (count==8)?1'b1:1'b0; 
+assign empty = (count==0)?1'b1:1'b0; 
+</FONT>
+
+always @ (posedge clk) begin 
+
+if (reset==1) begin 
+   read_count = 0; 
+   write_count = 0; 
+end 
+else if (rd ==1 && count!=0) begin 
+
+r_data  = arr[read_count]; 
+read_count = read_count+1; 
+end 
+
+else if (wr==1'b1 && count&lt;8) begin
+arr[write_count]  = w_data; 
+write_count  = write_count+1; 
+end 
+
+else;
+
+if (write_count==8) 
+write_count=0; 
+
+else if (read_count==8) 
+read_count=0; 
+
+else;
+
+if (read_count &gt; write_count) begin 
+
+  count=read_count-write_count; 
+
+end 
+
+else if (write_count &gt; read_count) 
+
+  count=write_count-read_count; 
+
+else;
+
+end
+endmodule
+
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 20.04.2019 18:53:03
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+`timescale 1ns / 1ps
+
+module fifo_tb;
+
+ reg [7:0] w_data;
+ reg clk, rd, wr, reset;
+
+ wire [7:0] r_data;
+ wire empty, full;
+
+ fifo uut (.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .r_data(r_data), .empty(empty), .full(full));
+
+ initial begin
+
+clk  = 1'b0;
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match76-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+w_data  = 8'h0;
+reset  = 1'b1;
+rd  = 1'b0;
+wr  = 1'b0;
+
+#150;        
+
+reset  = 1'b1;
+</FONT>
+#20
+reset  = 1'b0;
+wr  = 1'b1;
+w_data  = 8'h0;
+
+#20;
+w_data  = 8'h2;
+#20;
+w_data  = 8'h2;
+#20;
+w_data  = 8'h3;
+#20;
+w_data  = 8'h4;
+#20;
+w_data  = 8'h5;
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match76-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+#20;
+w_data  = 8'h10;
+#20;
+wr = 1'b0;
+rd = 1'b1; 
+
+end 
+
+always #10 clk = ~clk;    
+</FONT>
+endmodule
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE>18116028/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116028/<p><PRE>
+&gt;&gt;&gt;&gt; file: tb_1.v
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match192-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_22.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+`timescale 1ns / 1ps
+module fifo_tb;
+reg Clk;
+
+reg[31:0] w_data;
+
+
+reg wr;
+
+reg rd;
+
+
+reg reset;
+wire[31:0] r_data;
+wire empty;
+wire full;
+
+
+fifo uut(Clk,empty,reset,full, w_data, r_data,rd, wr);
+</FONT> initial begin
+Clk  = 1'b0;
+
+w_data = 32'h0;
+ rd = 1'b0;
+ 
+ 
+wr = 1'b0;
+reset = 1'b1;
+
+ #200;        
+reset  = 1'b1;
+ #8;
+reset = 1'b0;
+wr  = 1'b1;
+w_data = 32'h0;
+
+
+ #8;
+  w_data = 32'h1;
+ #8;
+  w_data = 32'h2;
+ #8;
+ 
+ 
+w_data = 32'h3;
+    #8;
+ w_data = 32'h4;
+    #8;
+  wr = 1'b0;
+  rd= 1'b1;  
+end 
+ always #20 Clk = ~Clk;    
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

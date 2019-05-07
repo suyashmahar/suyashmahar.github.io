@@ -1,0 +1,220 @@
+<HTML>
+<HEAD>
+<TITLE>18116053/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116053/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 19.04.2019 22:40:15
+// Design Name: 
+// Module Name: solution_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo(clk,reset,rd,wr,w_data,r_data,empty,full);
+    input clk;
+    input reset;
+    input rd;
+    input wr;
+    input [0:7] w_data ;
+  
+    reg [7:0] store [0:7];
+
+    output reg empty ;
+    output reg full ;
+    output reg [0:7] r_data ;
+     
+    integer f=-1, r=-1;
+    
+    initial begin
+        full = 0;
+        empty = 1;
+        store[0] = " ";
+        store[1] = " ";
+        store[2] = " ";
+        store[3] = " ";
+        store[4] = " ";
+        store[5] = " ";
+        store[6] = " ";
+        store[7] = " ";
+    end
+    
+    always @(posedge clk) 
+    begin
+    
+        if(wr==1&&f&lt;0) begin
+            f = 0;
+            r = 0;
+            store[f] = w_data;
+            empty = 0;
+            end
+            
+        else if(wr==1&&f&gt;=0&&f&lt;7) begin
+            f = f+1;
+            store[f] = w_data;
+        end
+            
+        else if(wr==1&&f==7) begin
+            empty = 0;
+            full = 1;
+        end
+       
+        else if(rd==1&r==-1) begin
+            empty = 1;
+            full = 0;     
+        end
+        
+        else if(rd==1&r&gt;=0&&r&lt;7) begin
+            r_data = store[r];     
+             r = r+1;
+        end
+        
+        else if(rd==1&r==7) begin
+            empty = 0 ;
+            full = 1;
+            r_data = store[r];     
+        end
+        
+        else if(reset==1) begin
+            store[0] = " ";
+            store[1] = " ";
+            store[2] = " ";
+            store[3] = " ";
+            store[4] = " ";
+            store[5] = " ";
+            store[6] = " ";
+            store[7] = " ";
+            f = -1;
+            r = -1;
+            empty = 1;
+            full = 0;
+        end
+       
+    end
+
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04/21/2019 03:37:09 PM
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo_tb();
+    reg clk;
+    reg rd;
+    reg wr;
+    reg reset;
+    reg [7:0]w_data;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match220-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    wire [7:0]r_data;
+    wire empty;
+    wire full;
+    
+    fifo uut(.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .r_data(r_data), .empty(empty), .full(full));
+</FONT>    
+    initial begin
+    clk = 1'b0;
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "a";
+    end
+    
+    always begin
+    #10
+    reset = 0;
+    #10
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 0;
+    rd = 1;
+    w_data = w_data + 1;
+    #10
+    rd = 0;
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 0;
+    rd = 1;
+    w_data = w_data + 1;
+    #10
+    rd = 0;
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 0;
+    rd = 1;
+    w_data = w_data + 1;
+    #10
+    wr = 0;
+    rd = 0;
+    reset = 1;
+    end
+    
+    always begin
+      #5.000
+      clk = ~clk;
+    end
+    
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

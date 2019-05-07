@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<TITLE>18116021/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18117112/<p><PRE>
+&gt;&gt;&gt;&gt; file: fifo.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 20.04.2019 15:23:21
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo #(parameter x=8,y=4)
+(input wire clk,reset,rd,wr,
+input wire[x-1:0] w_data,
+output wire[x-1:0] r_data,
+output wire full,
+output wire empty);
+
+reg [x-1:0] array_store[2**y-1:0];
+reg reg_full, reg_empty,fullNext,emptyNext;
+wire wr_en;
+reg [y-1:0] ptrw_store,ptrw_next,ptrw_succ;
+reg [y-1:0] ptrr_store,ptrr_next,ptrr_succ;
+
+
+always @(posedge clk)
+if (wr_en)
+array_store[ptrw_store]&lt;= w_data;
+assign r_data= array_store[ptrr_store];
+assign wr_en = wr&~reg_full;
+
+always @(posedge clk, posedge reset)
+if(reset)
+begin
+ptrr_store&lt;=0;
+ptrw_store&lt;=0;
+reg_full&lt;=1'b0;
+reg_empty &lt;= 1'b1;
+end
+else 
+begin
+reg_full&lt;=fullNext;
+ptrw_store &lt;= ptrw_next;
+ptrr_store &lt;= ptrr_next;
+reg_empty&lt;= emptyNext;
+end
+
+
+always @*
+begin
+fullNext= reg_full;
+emptyNext= reg_empty;
+ptrw_succ = ptrw_store +1;
+ptrr_succ = ptrr_store +1;
+ptrw_next = ptrw_store;
+ptrr_next=ptrr_store;
+
+
+case({wr,rd})
+2'b01:
+if (~reg_empty)
+begin
+ptrr_next=ptrr_succ;
+fullNext=1'b0;
+if(ptrr_succ==ptrw_store)
+emptyNext=1'b1;
+end
+2'b10:
+if (~reg_full)
+begin
+ptrw_next=ptrw_succ;
+emptyNext=1'b0;
+if(ptrw_succ==ptrr_store)
+fullNext=1'b1;
+end
+
+2'b11:
+begin
+ptrw_next =ptrw_succ;
+ptrr_next = ptrr_succ;
+end
+
+
+
+
+endcase
+end
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match210-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+assign full=reg_full;
+assign empty =reg_empty;
+
+endmodule
+&gt;&gt;&gt;&gt; file: fifo_tb.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 20.04.2019 16:00:38
+// Design Name: 
+// Module Name: fifo_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo_tb();
+reg clk,reset,wr,rd;
+reg[7:0] w_data;
+</FONT>reg[7:0] r_data;
+wire empty,full;
+integer k=0;
+
+fifo uut(.clk(clk),.reset(reset),.wr(wr),.rd(rd),.w_data(w_data),.r_data(r_data),.empty(empty),.full(full));
+initial begin 
+clk=0;
+reset = 0;
+wr=1;
+rd =0;
+w_data =0;
+
+forever
+begin
+#3 clk =clk+1;
+#7
+if(k%15==0&&k&gt;20)
+begin
+reset=1;
+rd=0;
+wr=0;
+end
+
+else
+if(k&lt;8|| k%3==0||k&3==1)
+begin
+reset=0;
+wr=1;rd=0;
+w_data =w_data +1;
+end
+
+else 
+if(k%3==2)
+begin
+reset=0;
+wr=0;
+rd=1;
+end
+k=k+1;
+end
+end
+
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

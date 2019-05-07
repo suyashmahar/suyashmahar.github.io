@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+<TITLE>18116016/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116016/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 19:37:13
+// Design Name: 
+// Module Name: solution_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo(clk,reset,read,write,w_data[7:0],r_data[7:0],empty,full);
+input wire clk;
+input read;
+input reset;
+input write;
+input [7:0] w_data;
+
+output reg [7:0] r_data;
+output reg empty;
+output reg full;
+integer fr;
+integer rr;
+integer queue[7:0];
+
+always @(posedge clk)
+    begin
+        if(reset==1)
+            begin
+                queue[0]=0;
+                queue[1]=0;
+                queue[2]=0;
+                queue[3]=0;
+                queue[4]=0;
+                queue[5]=0;
+                queue[6]=0;
+                queue[7]=0;
+                fr=-1;
+                rr=-1;
+                empty=1;
+                full=0;
+            end
+            else
+                begin
+                    if ((write==1)&&(full=0))
+                        begin
+                            empty=0;
+                            if((fr==-1)&&(rr==-1))
+                                begin
+                                    queue[0]=w_data;
+                                    
+                                    fr=0;
+                                    rr=0;
+                                end
+                            else if(rr==7)
+                                begin
+                                    queue[rr]=w_data;
+                                end
+                            else
+                                begin
+                                    rr=rr+1;
+                                    queue[rr]=w_data;
+                                end
+                                if((fr==0)&&(rr==7))
+                                    full=1;
+                                else if(fr==(rr+1))
+                                    full=1;
+                       end
+                    if((read==1)&&(empty==0))
+                        begin
+                            r_data=queue[fr];
+                            queue[fr]=0;
+                            if (fr==rr)
+                                begin
+                                    fr=-1;
+                                    rr=-1;
+                                    empty=1;
+                                 end
+                               else
+                                  begin
+                                     fr=(fr+1)%8;
+                                  end
+                             end
+                           end
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match182-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                         end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 20:09:09
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo_tb;
+reg clk,reset,read,write;
+reg [7:0]w_data;
+wire [7:0]r_data;
+wire empty,full;
+fifo f(.clk(clk),.reset(reset),.read(read),.write(write),.w_data(w_data),.r_data(r_data),.empty(empty),.full(full));
+</FONT>initial
+begin
+    read=1'b0;
+    write=1'b0;
+    w_data=8'b00000000;
+    clk=1'b0;
+    reset=1'b0;
+forever
+begin
+    #10
+        write=1;
+    #10
+        write=1;
+    #10
+        write=0;
+        read=1;
+    #10
+        write=1;
+        read=1;
+    #10
+        write=0;
+        read=0;
+end
+end
+always begin
+#10
+clk=clk+1;
+w_data=w_data+1;
+end
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

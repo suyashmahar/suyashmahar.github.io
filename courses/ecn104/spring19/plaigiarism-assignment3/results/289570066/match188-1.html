@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<TITLE>18116041/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116042/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match188-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_7.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+`timescale 1ns / 1ps
+
+module fifo(clk, reset, rd, wr, w_data, r_data, empty, full);
+input wire clk, reset, wr, rd;
+input wire [7:0] w_data;
+output reg empty=1;
+</FONT>output reg full=0;
+output reg [7:0] r_data;
+
+reg [7:0] reg_array [7:0];
+reg [3:0] wr_ptr = 3'b000;
+reg [3:0] rd_ptr = 3'b000;
+
+always @(posedge clk) begin
+ if(wr==1 && full==0)
+ begin
+    reg_array[wr_ptr] = w_data;
+    if(wr_ptr==3'b111) wr_ptr=3'b000;
+    else wr_ptr=wr_ptr+1;
+ end
+ else
+ if(rd==1 && empty==0)
+ begin
+    r_data = reg_array[rd_ptr];
+    reg_array[rd_ptr] = "";
+    if(rd_ptr==3'b111) rd_ptr=3'b000;
+    else rd_ptr=rd_ptr+1;
+ end
+ if(reset)
+ begin
+ rd_ptr = 3'b000;
+ wr_ptr = 3'b000;
+ reg_array[0] = "";
+ reg_array[1] = "";
+ reg_array[2] = "";
+ reg_array[3] = "";
+ reg_array[4] = "";
+ reg_array[5] = "";
+ reg_array[6] = "";
+ reg_array[7] = "";
+ r_data="";
+ full = 0;
+ empty = 1;
+ end
+ if(wr_ptr == rd_ptr && reg_array[rd_ptr]=="")
+ begin
+ full=0;
+ empty=1;
+ end
+ else
+ if(wr_ptr == rd_ptr)
+ begin
+ full=1;
+ empty=0;
+ end
+ else begin
+ full=0;
+ empty=0;
+ end
+end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+
+module fifo_tb();
+    reg clk, reset, wr, rd;
+    reg [7:0] w_data;
+    wire [7:0] r_data;
+    wire empty, full;
+    integer i=0;
+    
+    fifo uut(.clk(clk), .reset(reset), .wr(wr), .rd(rd), .w_data(w_data), .r_data(r_data), .empty(empty), .full(full));
+    
+    initial begin
+    clk=0;
+    reset=0;
+    wr=1;
+    rd=0;
+    w_data=0;
+    forever
+    begin
+    #6 clk=clk+1;
+    #9
+    if(i%15==0 && i&gt;20)
+    begin
+        reset=1;
+        rd=0;
+        wr=0;
+    end
+    else
+    if(i&lt;8 || i%3==0 || i%3==1)
+    begin
+        reset=0;
+        wr=1;
+        rd=0;
+        w_data=w_data+1;
+    end
+    else
+    if(i%3==2)
+    begin
+        reset=0;
+        rd=1;
+        wr=0;
+    end
+    i=i+1;
+    end
+    end
+    
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

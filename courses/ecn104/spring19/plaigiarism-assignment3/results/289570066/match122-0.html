@@ -1,0 +1,288 @@
+<HTML>
+<HEAD>
+<TITLE>18116055/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116055/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 13.04.2019 12:43:33
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// ,f
+//////////////////////////////////////////////////////////////////////////////////
+
+module fifo(input clk,input reset,input rd,input wr,input [7:0]w_data,output reg [7:0]r_data,output reg empty,output reg full);
+reg r1;
+reg [7:0]p1;
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match122-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reg [7:0]p2;
+ reg [7:0]f[7:0]; 
+ 
+ initial  begin
+p1=0;
+p2=0;
+</FONT>empty=1;
+full=0;
+f[0][7:0]=0;
+ f[1][7:0]=0;
+ f[2][7:0]=0;
+ f[3][7:0]=0;
+ f[4][7:0]=0;
+ f[5][7:0]=0;
+ f[7][7:0]=0;
+
+ end
+ 
+ always @(posedge clk) begin
+ //
+ if(reset==1) begin
+ p1=0;
+ p2=0;
+ empty=1;
+ full=0;
+ //f[7:0]=0;
+ f[0][7:0]=0;
+ f[1][7:0]=0;
+ f[2][7:0]=0;
+ f[3][7:0]=0;
+ f[4][7:0]=0;
+ f[5][7:0]=0;
+ f[7][7:0]=0;
+ end
+ //
+ //
+ else if (reset==0) begin
+ //
+  if(rd==0&&wr==0)begin
+end
+else if((rd!=0&&wr==0)||(rd==0&&wr!=0))begin
+
+if(p1==p2&&f[p1]==0) begin
+empty=1;
+ full=0;
+if(rd==1)begin
+$display("is empty");
+end
+  else if(wr==1) begin
+ f[p1]=w_data;
+ end
+ end
+ 
+ else if(p1==p2&&f[p1]!=0) begin
+ empty=0;
+ full=0;
+ if(rd==1) begin
+ r_data=f[p1];
+ f[p1]=0;
+ end
+ 
+ else if(wr==1) begin
+ p2=(p2+1)%8;
+ f[p2]=w_data;
+ end
+ end
+
+else if(p1!=p2&&p1!=(p2+1)%8) begin
+empty=0;
+ full=0;
+ if(rd==1)begin
+ r_data=f[p1];
+ p1=(p1+1)%8;
+ end
+
+ else if(wr==1) begin
+ p2=(p2+1)%8;
+ f[p2]=w_data;
+ end
+ end
+ 
+ else if(p1!=p2&&p1==(p2+1)%8) begin
+  empty=0;
+ full=1;
+ if(rd==1)begin
+ r_data=f[p1];
+ p1=(p1+1)%8;
+ end
+
+else if(wr==1) begin
+ $display("is Full");
+ end
+ end
+ 
+ else 
+ $display("invalid");
+ end
+ end
+ 
+ else
+ $display("invalid input");
+ end
+ 
+ endmodule
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ //
+ //
+/* else if(p1==p2&&f[p1]!=0) begin
+ 
+ if(rd==1) begin
+ r_data=f[p1];
+ f[p1]=0;
+ empty=1;
+ full=0;
+ end
+ 
+ if(wr==1) begin
+ p2=(p2+1)%8;
+ f[p2]=w_data;
+ end
+ 
+ end
+ //
+ else if(p1!=p2) begin
+ if(p1==(p2+1)%8) begin
+ full=1;
+ empty=0;
+ end
+ 
+ else if(p1!=(p2+1)%8) begin
+ full=0;
+ empty=0;
+ if(rd==1)begin
+ r_data=f[p1];
+ p1=p1+1;
+ 
+ 
+ 
+ 
+ end
+ end
+ end
+ end
+ end*/
+ /*if(p1==p2&&f[p1]==0) begin
+ empty=1;
+ full=0;
+ end
+ if(p1==p2&&f[p1]!=0) begin
+ empty=0;
+ full=0;
+ end
+ if(p1!=p2&&p1!=(p2+1)%8) begin
+ empty=0;
+ full=0;
+ end
+ if(p1!=p2&&p1==(p2+1)%8) begin
+ empty=0;
+ full=1;
+ end*/
+
+
+&gt;&gt;&gt;&gt; file: tb_1.v
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match122-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 13.04.2019 16:52:41
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module tb_1( );
+reg clk;
+reg reset;
+reg rd;
+reg wr;
+reg [7:0]w_data;
+wire [7:0]r_data;
+wire empty;
+wire full;
+</FONT>initial begin
+clk=1'b0;
+reset=0;
+rd=0;
+wr=1;
+w_data=8'b00000001;
+end
+always # 5 clk=clk+1'b1;
+always @(*)begin
+#100
+reset=0;
+#10
+reset=1;
+
+end
+
+always begin
+#10
+rd=1;
+#10
+rd=0;
+#10
+rd=0;
+end
+
+always begin
+#10
+wr=0;
+#10
+wr=1;
+#10
+wr=1;
+end
+always begin
+#10
+w_data=w_data+8'b000000001;
+end
+
+
+
+ fifo uut(.clk(clk),.reset( reset),.rd( rd),.wr (wr),.w_data( w_data),.r_data( r_data),.empty(empty),.full(full));
+
+endmodule
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

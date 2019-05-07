@@ -1,0 +1,146 @@
+<HTML>
+<HEAD>
+<TITLE>18116038/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116058/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v.v
+`timescale 1ns / 1ps
+
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match51-0.html#3" TARGET="0"><IMG SRC="../../bitmaps/tm_3_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+module fifo(clk,reset,w_data,rd,wr,r_data,empty,full); 
+
+input  clk, rd,wr,reset;
+output empty,full;
+
+input   [7:0]    w_data;
+output reg [7:0] r_data; 
+</FONT>
+integer  Count = 0; 
+reg [7:0] FIFO [7:0]; 
+integer rcount = 0, wcount = 0; 
+
+
+assign empty = (Count==0)? 1:0; 
+
+assign full = (Count==8)? 1:0; 
+
+always @ (posedge clk) 
+
+begin 
+
+  
+ begin 
+
+  if (reset==1) begin 
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match51-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_14.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ rcount = 0; 
+wcount = 0;
+end 
+else if (rd ==1'b1 && Count!=0) begin 
+ r_data  = FIFO[rcount]; 
+   rcount = rcount+1; 
+
+  end 
+
+  else if (wr==1'b1 && Count&lt;8) begin
+   FIFO[wcount]  = w_data; 
+   wcount  = wcount+1; 
+
+     end 
+         else; 
+</FONT> end 
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match51-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ if (wcount==8) 
+ wcount=0; 
+
+ else if (rcount==8) 
+ rcount=0; 
+ else;
+ if (rcount &gt; wcount) begin 
+ Count=rcount-wcount; 
+ end 
+ else if (wcount &gt; rcount) 
+ Count=wcount-rcount; 
+    else;
+ end 
+endmodule&gt;&gt;&gt;&gt; file: tb_1.v.v
+`timescale 1ns / 1ps
+</FONT>
+module fifo_tb;
+
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match51-0.html#2" TARGET="0"><IMG SRC="../../bitmaps/tm_2_11.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ reg clk;
+ reg [7:0] w_data;
+ reg rd;
+ reg wr;
+ reg reset;
+
+ wire [7:0] r_data;
+ wire empty;
+ wire full;
+
+
+ fifo uut(.clk(clk), .w_data(w_data), .rd(rd), .wr(wr), .r_data(r_data), .reset(reset),.empty(empty),.full(full));
+</FONT>
+ initial begin
+  clk  = 1'b0;
+ w_data  = 8'h0;
+  rd  = 1'b0;
+  wr  = 1'b0;
+  reset  = 1'b1;
+
+  
+
+  #200
+  reset  = 1'b0;
+  wr  = 1'b1;
+  w_data  = 0;
+
+  #20
+
+  w_data  = 1;
+
+  #20
+  w_data  = 8'h2;
+#20
+  w_data  =8'h3;
+ #20
+
+  w_data  = 8'h4;
+#20
+
+  w_data  = 8'h1;
+#20
+
+  w_data  = 8'h2;
+#20
+
+  w_data  = 8'h3;
+#20
+
+  w_data  = 8'h4;
+
+  #20
+
+  wr = 0;
+  rd= 1'b1;  
+
+ end 
+
+   always #10 clk = ~clk;    
+
+endmodule
+
+</PRE>
+</PRE>
+</BODY>
+</HTML>

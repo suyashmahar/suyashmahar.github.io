@@ -1,0 +1,138 @@
+<HTML>
+<HEAD>
+<TITLE>18116060/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116078/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+module fifo( clk,w_data, rd, wr, r_data, reset,empty, full  ); 
+input  clk, rd, wr,  reset;
+output  empty, full;
+input   [31:0]    w_data;
+output reg [31:0] r_data; // internal registers 
+reg [2:0]  Count = 0; 
+reg [31:0] FIFO [0:7]; 
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match64-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_26.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reg [2:0]  r_Counter = 0, w_Counter = 0; 
+assign empty = (Count==0)? 1'b1:1'b0; 
+assign full = (Count==8)? 1'b1:1'b0; 
+always @ (posedge clk) 
+begin 
+ 
+  if (reset) begin 
+   r_Counter = 0; 
+   w_Counter = 0; 
+     end 
+
+  else if (rd ==1'b1 && Count!=0) begin 
+
+   r_data  = FIFO[r_Counter]; 
+   r_Counter = r_Counter+1; 
+   end 
+
+  else if (wr==1'b1 && Count&lt;8) begin
+   FIFO[w_Counter]  = w_data; 
+w_Counter  = w_Counter+1; 
+</FONT>
+  end 
+
+  else; 
+    
+
+ if (w_Counter==8) 
+w_Counter=0; 
+
+ else if (r_Counter==8) 
+r_Counter=0; 
+
+ else;
+if (r_Counter &gt; w_Counter) begin 
+  Count=r_Counter-w_Counter; 
+
+ end 
+
+ else if (w_Counter &gt; r_Counter) 
+   Count=w_Counter-r_Counter; 
+
+ else;
+
+end 
+
+endmodule&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+
+
+module fifo_tb(
+
+    );
+    reg clk;
+ reg [7:0] w_data;
+reg rd;
+ reg wr;
+ reg reset;
+ wire [7:0] r_data;
+ wire empty;
+ wire full;
+fifo uut (
+
+.clk(clk), 
+.w_data(w_data), 
+.rd(rd), 
+.wr(wr), 
+.r_data(r_data), 
+.reset(reset), 
+.empty(empty), 
+.full(full)
+ );
+
+ initial begin
+
+
+  clk  = 1'b0;
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match64-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+  w_data  = 8'h0;
+  rd  = 1'b0;
+  wr  = 1'b0;
+  reset  = 1'b1;
+
+  #100;        
+reset = 1'b1;
+</FONT>
+  #20;
+ reset  = 1'b0;
+ wr  = 1'b1;
+ w_data  = 8'h0;
+  
+  #20;
+
+  w_data  = 8'h1;
+
+  #20;
+
+  w_data  = 8'h2;
+
+  #20;
+
+  w_data  = 8'h3;
+
+  #20;
+
+  w_data  = 8'h4;
+
+  #20;
+
+  wr = 1'b0;
+
+ rd = 1'b1;  
+
+ end 
+
+   always #10 clk = ~clk; 
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

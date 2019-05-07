@@ -1,0 +1,222 @@
+<HTML>
+<HEAD>
+<TITLE>18116021/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116021/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+
+module fifo( input clk, input reset, input rd, input wr, input [0:8-1]w_data, output [0:8-1]r_data, output empty, output full);
+
+integer head=0,tail=0;
+reg [7:0] cque[0:7];
+reg [7:0]b;
+reg f,e;
+initial begin
+    e = 1;
+    f = 0;
+    head = 0;
+    tail = 0;
+    b="";
+end
+
+always @(posedge clk) 
+begin
+
+    if ( reset == 1 )begin
+        cque[0]=""; 
+        cque[1]=""; 
+        cque[2]=""; 
+        cque[3]=""; 
+        cque[4]=""; 
+        cque[5]=""; 
+        cque[6]=""; 
+        cque[7]=""; 
+    end 
+    if ( reset == 0 )begin
+        if( head == tail && cque[(head+7)%8] != "")begin
+            f = 1;
+        end
+        if( head != tail || cque[(head+7)%8] == "")begin
+            f=0;
+        end
+        if( tail != head)begin
+            e = 0;
+        end
+        if( tail == head && cque[(head+7)%8] == "")begin
+            e = 1;
+        end
+        if( rd == 1 && e == 0)begin 
+            b = cque[tail];
+            cque[tail]="";
+            tail = ( tail + 1 ) % 8;
+        end
+        if( wr == 1 && rd == 0 && f != 1 )begin 
+            cque[head] = w_data;
+            head = (head + 1) % 8; 
+        end
+        if(rd == 0 || e == 1 )begin
+            b="";
+        end
+    end 
+end
+assign full = f;
+assign empty = e;
+assign r_data = b;
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+
+module fifo_tb();
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match174-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reg clk,reset,rd,wr;
+reg [7:0] w_data;
+wire empty,full;
+wire[7:0] r_data;
+
+fifo uut (.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .r_data(r_data), .empty(empty), .full(full));
+</FONT> 
+initial begin
+    clk = 1'b0;
+    reset = 1;
+    rd = 0;
+    wr = 0;
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "q";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "t";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "p";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "l";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "u";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "d";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "p";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "h";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "j";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "t";
+    #14
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "t";
+    #14
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "u";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "g";
+    #14
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "c";
+    #14
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #15
+    reset = 0;
+    rd = 1;
+    wr = 0;
+    #10
+    reset = 1;
+    rd = 0;
+    wr = 0;
+    #10
+    reset = 0;
+    rd = 0;
+    wr = 1;
+    w_data = "t";
+    #14
+    reset = 0;
+    rd = 1;
+    wr = 0;
+end
+always begin
+        #7.000 clk = ~clk;
+end
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

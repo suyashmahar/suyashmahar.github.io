@@ -1,0 +1,175 @@
+<HTML>
+<HEAD>
+<TITLE>18116066/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116067/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+
+
+module solution_1(
+
+    );
+endmodule
+
+module fifo( clk, reset , rd , wr , w_data , r_data  , empty , full );
+input wire [1-1:0]clk;
+input wire [1-1:0]reset;
+input wire [1-1:0]rd;
+input wire [1-1:0]wr;
+input [8-1:0] w_data;
+output reg [8-1:0] r_data;
+output reg [1-1:0]empty;
+output reg [1-1:0]full;
+reg [8-1:0] cir_q [8-1:0];
+integer front,rear;
+
+always @ (posedge clk) begin
+if (reset==1'b1)
+        begin
+             empty=1'b1;
+             full=1'b0;
+             front=-1;  rear=-1 ;  //initialising the queue
+        end
+
+if (rd==1'b1)
+      begin
+           if (empty==1'b0)
+                  begin
+                       r_data=cir_q[front];
+                       if (front==rear)
+                           begin
+                                front=-1;  rear=-1;
+                                empty=1'b1;
+                           end 
+                       else        
+                          front=(front+1)%8;
+                   end
+       end
+
+if (wr==1'b1)
+       begin
+            if (full==1'b0)
+                   begin
+                         empty=1'b0;  
+                         rear=(rear+1)%8;
+                         cir_q[rear]=w_data;
+                         if (front==rear)
+                              begin 
+                                  full=1'b1;
+                              end
+                    end 
+        end
+        
+end                                                                    
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+
+
+module tb_1(
+
+    );
+endmodule
+
+module fifo_tb;
+reg clk;
+reg [1-1:0]reset;
+reg [1-1:0]rd;
+reg [1-1:0]wr;
+reg [8-1:0] w_data;
+wire [8-1:0] r_data;
+wire [1-1:0]empty;
+wire [1-1:0]full;
+
+fifo uut(
+        .clk(clk) , .reset(reset) ,
+        .rd(rd) , .wr(wr) , .w_data(w_data) ,
+        .r_data(r_data)  , .empty(empty) ,
+        .full(full)
+        );
+initial begin
+clk=1;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match119-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+rd=1'b0;
+wr=1'b0;
+reset=1'b1;
+end
+always begin
+     #20 clk=~clk;        
+  end  
+
+
+initial begin
+#(50)
+reset=1'b0;
+rd=1'b1;
+</FONT>
+#(50)
+rd=1'b0;
+wr=1'b1;
+w_data=8'b00000010;
+
+#(50)
+wr=1'b1;
+w_data=8'b00000110;
+
+#(50)
+wr=1'b1;
+w_data=8'b00001010;
+
+#(50)
+wr=1'b1;
+w_data=8'b00001001;
+
+#(50)
+wr=1'b1;
+w_data=8'b00100010;
+
+#(50)
+wr=1'b1;
+w_data=8'b01001010;
+
+#(50)
+wr=1'b0;
+rd=1'b1;
+
+#(50)
+wr=1'b0;
+rd=1'b1;
+
+#(50)
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match119-0.html#1" TARGET="0"><IMG SRC="../../bitmaps/tm_1_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+wr=1'b0;
+rd=1'b1;
+
+#(50)
+rd=1'b0;
+wr=1'b1;
+w_data=8'b11001010;
+          
+#(50)
+</FONT>wr=1'b1;
+w_data=8'b01111010;
+
+#(50)
+wr=1'b1;
+w_data=8'b10000010;
+
+#(50)
+wr=1'b1;
+w_data=8'b11001011;
+
+#(50)
+wr=1'b1;
+w_data=8'b01001110;
+
+end
+endmodule</PRE>
+</PRE>
+</BODY>
+</HTML>

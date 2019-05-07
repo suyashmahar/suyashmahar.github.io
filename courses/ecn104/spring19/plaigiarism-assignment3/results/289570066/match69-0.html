@@ -1,0 +1,158 @@
+<HTML>
+<HEAD>
+<TITLE>18116047/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116047/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+//////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04/21/2019 04:59:24 PM
+// Design Name: 
+// Module Name: solution_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo(clk,reset,rd,wr,w_data,r_data,empty,full);
+input clk,reset,rd,wr;
+output reg empty,full;
+reg [7:0] circularQueue [0:7];
+integer tempr,tempw;
+input [7:0] w_data;
+output reg [7:0] r_data;
+initial begin
+tempr = -1;
+tempw = -1; 
+circularQueue[0] = 8'b00000000;    
+circularQueue[1] = 8'b00000000;
+circularQueue[2] = 8'b00000000;
+circularQueue[3] = 8'b00000000;
+circularQueue[4] = 8'b00000000;
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match69-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+circularQueue[5] = 8'b00000000;
+circularQueue[6] = 8'b00000000;
+circularQueue[7] = 8'b00000000;
+end
+always @(posedge clk) begin
+ if (reset == 1) begin
+  circularQueue[0] = 8'b00000000;    
+</FONT>circularQueue[1] = 8'b00000000;
+circularQueue[2] = 8'b00000000;
+circularQueue[3] = 8'b00000000;
+circularQueue[4] = 8'b00000000;
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match69-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_3.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+circularQueue[5] = 8'b00000000;
+circularQueue[6] = 8'b00000000;
+circularQueue[7] = 8'b00000000;
+end
+</FONT>if(rd == 1&& empty==0)begin 
+r_data = circularQueue[tempr];
+circularQueue[tempr] = 8'b0000000000;
+tempr = tempr + 1;
+tempr = (tempr%8);
+full=0;
+end
+if(wr == 1&&full==0)begin 
+tempw = tempw + 1;
+tempw = (tempw%8);
+circularQueue[tempw] = w_data;
+empty=0;
+end
+if ((circularQueue[0] == 8'b00000000)&&(circularQueue[1] == 8'b00000000)&&(circularQueue[2] == 8'b00000000)&&(circularQueue[3] == 8'b00000000)&&(circularQueue[4] == 8'b00000000)&&(circularQueue[5] == 8'b00000000)&&(circularQueue[6] == 8'b00000000)&&(circularQueue[7] == 8'b00000000))  
+begin
+empty =1;
+end
+else
+begin  
+empty =0;
+end
+if ((circularQueue[0] != 8'b00000000)&&(circularQueue[1] != 8'b00000000)&&(circularQueue[2] != 8'b00000000)&&(circularQueue[3] != 8'b00000000)&&(circularQueue[4] != 8'b00000000)&&(circularQueue[5] != 8'b00000000)&&(circularQueue[6] != 8'b00000000)&&(circularQueue[7] != 8'b00000000))  
+begin
+full =1;
+end
+else
+begin  
+full =0;
+end
+end
+endmodule          &gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04/21/2019 10:59:13 PM
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module fifo_tb;
+reg clk,reset,rd,wr;
+wire empty,full;
+reg [7:0] w_data;
+wire [7:0] r_data;
+
+fifo uut(.clk(clk),.reset(reset),.rd(rd),.wr(wr),.w_data(w_data),.r_data(r_data),.empty(empty),.full(full));
+initial
+begin
+clk = 1'b0;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match69-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reset = 1'b0;
+rd = 1'b0;
+wr = 1'b0;
+w_data = 8'b00000000;
+forever
+begin
+#20
+wr = 1;
+#20
+wr = 1;
+#20
+wr =0;
+rd = 1;
+#20
+wr=1;
+rd=1;
+#20
+wr=0;
+rd=0;
+end
+end
+always begin
+#20
+clk = clk+1;
+w_data = w_data+1;
+</FONT>end
+endmodule                                         
+</PRE>
+</PRE>
+</BODY>
+</HTML>

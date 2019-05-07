@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<TITLE>18116020/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116020/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 14:42:06
+// Design Name: 
+// Module Name: solution_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo(clk,reset,rd,wr,w_data[7:0],r_data[7:0],empty,full);
+input wire clk;
+input reset;
+input rd;
+input wr;
+input [7:0] w_data;
+output reg [7:0] r_data;
+output reg empty;
+output reg full;
+integer front;
+integer rear;
+integer queue[7:0];
+
+<A NAME="3"></A><FONT color = #00FFFF><A HREF="match25-1.html#3" TARGET="1"><IMG SRC="../../bitmaps/tm_3_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+always @(posedge clk)
+   begin
+        if(reset==1)
+            begin
+                 queue[0]=0;
+                 queue[1]=0;
+                 queue[2]=0;
+                 queue[3]=0;
+</FONT>                 queue[4]=0;
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match25-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_12.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                 queue[5]=0;
+                 queue[6]=0;
+                 queue[7]=0;
+                 front=-1;
+                 rear=-1;
+                 empty=1;
+                 full=0;
+             end
+             else
+                 begin
+        if ((wr==1)&&(full==0))
+             begin
+                 empty=0;
+                 if((front==-1) && (full==0))
+</FONT><A NAME="5"></A><FONT color = #FF0000><A HREF="match25-1.html#5" TARGET="1"><IMG SRC="../../bitmaps/tm_0_4.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                     begin
+                         queue[0]=w_data;
+                         front=0;
+                         rear=0;
+                     end
+                 else if(rear==7)
+                     begin
+                         queue[rear] =w_data;
+</FONT><A NAME="0"></A><FONT color = #FF0000><A HREF="match25-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_24.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+                     end
+                 else
+                     begin
+                         rear=rear+1;
+                         queue[rear]=w_data;
+                     end
+                 
+                 if((front==0) && (rear==7))
+                       full=1;
+                 else if (front == (rear+1))
+                       full=1;
+                       
+                       
+              end
+              if((rd==1) && (empty==0))
+                  begin
+                      r_data=queue[front];
+                      queue[front]=0;
+                      if (front==rear)
+                           begin
+                               front=-1;
+                               rear=-1;
+                               empty=1;
+                           end
+               else
+                  begin
+                      front=(front+1)%8;
+                  end
+              end
+              end
+              end
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 14:42:43
+// Design Name: 
+// Module Name: tb_1
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo_tb;
+</FONT>
+<A NAME="4"></A><FONT color = #FF00FF><A HREF="match25-1.html#4" TARGET="1"><IMG SRC="../../bitmaps/tm_4_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reg clk,reset,rd,wr;
+reg [7:0] w_data;
+wire [7:0]r_data;
+wire empty,full;
+fifo f(.clk(clk), .reset(reset), .rd(rd), .wr(wr), .w_data(w_data), .r_data(r_data), .empty(empty), .full(full));
+</FONT>initial
+begin
+    clk = 1'b0;
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match25-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_13.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+    reset = 1'b0;
+    rd = 1'b0;
+    wr = 1'b0;
+    w_data = 8'b00000000;
+    
+forever
+begin
+    #10
+        wr = 1;
+        
+    #10
+        wr = 1;
+    
+    #10
+        wr = 0;
+        rd = 1;
+    
+    #10
+        wr = 1;
+        rd = 1;
+    
+    #10
+        wr = 0;
+        rd = 0;
+        
+end
+end
+always begin
+#10 clk=clk+1;
+w_data=w_data+1;
+</FONT>end
+
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,171 @@
+<HTML>
+<HEAD>
+<TITLE>18116014/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116014/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 13:10:47
+// Design Name: 
+// Module Name: fifo
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+<A NAME="1"></A><FONT color = #00FF00><A HREF="match82-1.html#1" TARGET="1"><IMG SRC="../../bitmaps/tm_1_8.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+module fifo(clk, reset, rd, wr, w_data, r_data, full, empty);
+input clk, reset, rd, wr;
+input [7:0]w_data;
+output reg [7:0] r_data;
+output reg full, empty;
+</FONT>integer front, rear;
+reg [7:0] queue [7:0];
+
+always @ (posedge clk)
+begin
+    if(reset==1)
+    begin
+        front = -1;
+        rear = -1;
+        empty = 1;
+        full = 0;
+    end
+    
+    else
+    begin
+    if (wr==1 && full==0)
+      begin
+        if(rear&lt;0)
+        begin
+            rear=0;
+            front=0;
+            empty=0;
+        end
+            queue[front]=w_data;
+        if(front==7 && rear==0)
+        begin
+            full=1;
+        end
+        if(rear==(front+1))          
+        begin 
+            full=1;
+        end
+         front=(front+1)%8;
+     end 
+    
+    
+   else if(rd==1 && empty==0)
+    begin
+        r_data=queue[rear];
+        full=0;
+        rear=(rear+1)%8;
+        if(rear==front)
+        begin
+            rear=-1;
+            front=-1;
+            empty=1;
+        end
+    end 
+ 
+end
+end
+    
+endmodule
+&gt;&gt;&gt;&gt; file: tb_1.v
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 21.04.2019 13:40:21
+// Design Name: 
+// Module Name: fifo_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module fifo_tb;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match82-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_10.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+reg clk, rd,wr, reset;
+reg [7:0] w_data;
+wire full, empty;
+wire [7:0]r_data;
+
+fifo uut (.clk(clk), .reset(reset), .full(full), .empty(empty), .rd(rd), .wr(wr), .w_data(w_data), .r_data(r_data));
+</FONT>
+initial begin
+clk=1'b0;
+<A NAME="2"></A><FONT color = #0000FF><A HREF="match82-1.html#2" TARGET="1"><IMG SRC="../../bitmaps/tm_2_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+w_data=8'h0;
+rd=1'b0;
+wr=1'b0;
+reset=1'b1;
+
+#40
+
+reset=1'b0;
+</FONT>wr=1'b1;
+w_data=8'h12;
+
+#20
+w_data=8'h8;
+
+#20
+w_data=8'h1;
+
+#20
+w_data=8'h2;
+
+#20
+w_data=8'h11;
+
+#20
+w_data=8'h13;
+
+#20
+w_data=8'h4;
+
+#20
+w_data=8'h5;
+
+#20
+wr=1'b0;
+rd=1'b1;
+
+end
+
+always #10 clk=~clk;
+endmodule
+</PRE>
+</PRE>
+</BODY>
+</HTML>

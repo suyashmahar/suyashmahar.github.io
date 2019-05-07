@@ -1,0 +1,119 @@
+<HTML>
+<HEAD>
+<TITLE>18116053/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18116070/<p><PRE>
+&gt;&gt;&gt;&gt; file: fifo.v
+`timescale 1ns / 1ps
+
+module fifo( clk, w_data, rd, wr, r_data, reset, empty, full); 
+input  clk, rd, wr, reset;
+output reg empty, full;
+input [7:0] w_data;
+output reg [7:0] r_data;
+reg [7:0] FIFO [7:0]; 
+integer readCounter = 0, writeCounter = 0; 
+ 
+always @ (posedge clk) 
+begin 
+
+  if(reset)
+  begin
+  empty=1;
+  full=0; 
+  readCounter = -1; 
+  writeCounter = -1; 
+  end 
+  
+  else
+  begin
+   
+  if((rd ==1 && empty==0))
+  begin
+  r_data  = FIFO[readCounter]; 
+  full=0;
+  if(readCounter==writeCounter)
+  begin
+  readCounter = -1; 
+  writeCounter = -1; 
+  empty=1;
+  end
+
+  else
+  readCounter=(readCounter+1)%8;
+  end
+   
+  if (wr==1 && full==0) begin
+  if(readCounter&lt;0)
+  begin
+  readCounter=0;
+  writeCounter=0;
+  empty=0;
+  end
+  
+  writeCounter=(writeCounter+1)%8;
+  FIFO[writeCounter]  = w_data;
+  if((writeCounter==7) && (readCounter==0))
+  full=1; 
+  if(writeCounter == (readCounter-1))
+  full=1; 
+  end
+   
+  end
+  
+  end
+   
+  endmodule
+&gt;&gt;&gt;&gt; file: fifo_tb.v
+`timescale 1ns / 1ps
+
+
+module fifo_tb;
+ reg clk;
+ reg [7:0] w_data;
+ reg rd;
+ reg wr;
+ reg reset;
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match219-0.html#0" TARGET="0"><IMG SRC="../../bitmaps/tm_0_6.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+ wire [7:0] r_data;
+ wire empty;
+ wire full;
+ fifo uut ( .clk(clk),.w_data(w_data),.rd(rd),.wr(wr),.r_data(r_data),.reset(reset),.empty(empty),.full(full));
+</FONT> initial begin
+  clk  = 1'b0;
+  w_data  = 8'h0;
+  rd  = 1'b0;
+  wr  = 1'b0;
+  reset  = 1'b1;
+  
+  #100;        
+  reset  = 1'b0;
+  wr = 1'b1;
+  w_data  = 8'h1;
+  #20;
+  w_data  = 8'h2;
+  #20;
+  w_data  = 8'h3;
+  #20;
+  w_data  = 8'h4;
+  #20;
+  w_data  = 8'h5;
+  #20;
+  w_data  = 8'h6;
+  #20;
+  w_data  = 8'h7;
+  #20;
+  w_data  = 8'h0;
+  #20;
+  wr = 1'b0;
+  rd = 1'b1;  
+ end 
+ 
+   always #10 clk = ~clk;    
+endmodule</PRE>
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,193 @@
+<HTML>
+<HEAD>
+<TITLE>18111009/</TITLE>
+</HEAD>
+<BODY BGCOLOR=white>
+<HR>
+18111009/<p><PRE>
+&gt;&gt;&gt;&gt; file: solution_1.v
+`timescale 1ns / 1ps
+
+
+<A NAME="0"></A><FONT color = #FF0000><A HREF="match240-1.html#0" TARGET="1"><IMG SRC="../../bitmaps/tm_0_5.gif" ALT="other" BORDER="0" ALIGN=left></A>
+
+module fifo(clk, reset, rd, wr, r_data, w_data,empty, full);
+
+input clk;
+input reset;
+input wr;
+input rd;
+input [8-1:0] w_data;
+</FONT>output empty;
+output full;
+output [8-1:0] r_data;
+
+wire wr1, rd1;
+reg ffw1, ffw2, ffr1, ffr2;
+reg [8-1:0] out;
+ 
+always @ (posedge clk) 
+ffw1 &lt;= wr; 
+
+always @ (posedge clk) 
+ffw2 &lt;= ffw1; 
+
+ 
+assign wr1 = ~ffw1 & ffw2; 
+ 
+always @ (posedge clk) ffr1 &lt;= rd;
+always @ (posedge clk) ffr2 &lt;= ffr1;
+ 
+assign rd1 = ~ffr1 & ffr2; 
+ 
+ 
+reg [8-1:0] array[8-1:0]; 
+reg [4-1:0] wr_reg, wr_next, wr_succ; 
+reg [4-1:0] rd_reg, rd_next, rd_succ; 
+reg full_reg, empty_reg, full_next, empty_next;
+ wire enable;
+assign enable = wr1 & ~full; 
+ 
+
+always @ (posedge clk)
+ begin
+  if(enable)
+   array[wr_reg] &lt;= w_data;  
+ 
+ end
+  
+
+always @ (posedge clk)
+ begin
+  if(rd1)
+   out &lt;= array[rd_reg];
+ end
+  
+ 
+always @ (posedge clk or posedge reset)
+ begin
+  if (reset)
+   begin
+   wr_reg &lt;= 0;
+   rd_reg &lt;= 0;
+   full_reg &lt;= 1'b0;
+   empty_reg &lt;= 1'b1;
+   end
+   
+  else
+   begin
+   wr_reg &lt;= wr_next; 
+   rd_reg &lt;= rd_next;
+   full_reg &lt;= full_next;
+   empty_reg &lt;= empty_next;
+   end
+ end
+  
+always @(*)
+ begin
+  wr_succ = wr_reg + 1; 
+  rd_succ = rd_reg + 1; 
+  wr_next = wr_reg;  
+  rd_next = rd_reg;  
+  full_next = full_reg;
+  empty_next = empty_reg;
+   
+   case({wr1,rd1})
+    2'b01:
+     begin
+      if(~empty) 
+       begin
+        rd_next = rd_succ;
+        full_next = 1'b0;
+       if(rd_succ == wr_reg) 
+         empty_next = 1'b1;  
+       end
+     end
+     
+    2'b10: 
+     begin
+       
+      if(~full) 
+       begin
+        wr_next = wr_succ;
+        empty_next = 1'b0;
+        if(wr_succ == (8)) 
+         full_next = 1'b1;   
+       end
+     end
+      
+    2'b11:
+     begin
+      wr_next = wr_succ;
+      rd_next = rd_succ;
+     end
+     
+    endcase
+    
+ 
+ end
+ 
+assign full = full_reg;
+assign empty = empty_reg;
+assign r_data = out;
+
+endmodule
+
+&gt;&gt;&gt;&gt; file: tb_1.v
+module fifo_tb();
+    reg clk;
+   
+   reg reset;
+   reg rd;
+   reg wr;
+   wire[8-1:0] r_data;
+   reg[8-1:0] w_data;
+   wire empty;
+   wire full;
+   
+    initial begin
+            clk = 1'b0;
+            forever begin
+            #100 clk = ~clk;
+            end
+        end
+    initial begin
+            reset = 1'b1;
+            #500
+            reset = 1'b0;
+            
+    end     
+    
+    initial begin
+            wr = 1'b1;
+            forever begin
+            #70 wr = ~wr; 
+            end    
+    end           
+    initial begin
+            rd = 1'b0;
+            #2100
+            forever begin
+            #60 rd = ~rd;
+            end
+    end
+    initial begin
+            w_data = 8'b01000001;
+            forever begin
+            #55 w_data = ~w_data;
+            end
+    end
+    fifo f1(
+        .clk(clk),
+         .reset(reset),
+          .rd(rd), 
+          .wr(wr),
+          .r_data(r_data), 
+          .w_data(w_data),
+          .empty(empty), 
+          .full(full)
+    );
+endmodule</PRE>
+</PRE>
+</BODY>
+</HTML>
