@@ -1,223 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>    
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
     <style>
-      .bottom-three {
-      margin-bottom: 3cm;
-      }
-      .table-spaced {
-      border-collapse: collapse;
-      }
-      
-      .td-spaced {
-      padding-top: .5em;
-      padding-bottom: .5em;
-      }
+        .bottom-three {
+            margin-bottom: 3cm;
+        }
+        
+        .table-spaced {
+            border-collapse: collapse;
+        }
+        
+        .td-spaced {
+            padding-top: .5em;
+            padding-bottom: .5em;
+        }
+        
+        .page-title {
+            padding-top: 1em;
+            padding-bottom: 0.2em;
+        }
     </style>
     <title>Suyash Mahar</title>
-  </head>
 
-  <body>
+</head>
+
+<body>
     <!--Content starts here-->
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="padding-left: 10%; padding-right: 10%;">
-      <a class="navbar-brand" style="padding-left: 1px;" href="#">Suyash Mahar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-	<span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-	<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-	  <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-	  </li>
-	  <li class="nav-item">
-            <a class="nav-link" href="#project_head">Projects</a>
-	  </li>
-	  <li class="nav-item">
-            <a class="nav-link" href="#contact_info_head">Contact info</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" href="http://resume.suyashmahar.com/cv.pdf">Resume</a>
-	  </li>
-	</ul>
-      </div>
-    </nav>
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-	<h1 class="display-3">About me</h1>
-	<p class="lead">I'm a final year undergraduate in electronics and communication engineering at <a href="http://iitr.ac.in" target="_blank" class="alert-link" style="font-weight:normal;">IIT Roorkee</a> with interest in <a href="https://www.pcmag.com/encyclopedia/term/40139/computer-architecture" target="_blank" style="font-weight:normal;">computer architecture</a>, <a href="https://www.intel.in/content/www/in/en/architecture-and-technology/optane-dc-persistent-memory.html" style="font-weight:normal;" target="_blank" class="alert-link">Persistent Memory</a> and <a href="https://fpgainfinance.com/what-are-fpgas/" target="_blank" style="font-weight:normal;">FPGA</a> based accelerators. My r&#xe9;sum&#xe9; is available <a href="http://resume.suyashmahar.com/cv.pdf" class="alert-link" target="_blank" style="font-weight:normal;">here</a>.</p>
-      </div>
+    <div class="jumbotron jumbotron-fluid" style="padding-left: 5%; padding-right: 5%; padding-top: 5%" ;>
+        <div class="container">
+            <h2 class="display-3 page-title">Suyash Mahar</h2>
+            <h5>
+                <a href="https://github.com/suyashmahar"><img src="./img/github-box.svg" alt="github link"></a>
+                <a href="mailto:contact@suyashmahar.com"><img src="./img/email-box.svg" alt="email me"></a> | <a href="http://resume.suyashmahar.com/cv.pdf">cv</a></h5>
+            <p class="lead">I'm a final year undergraduate in electronics and communication engineering at <a href="http://iitr.ac.in" target="_blank" class="alert-link" style="font-weight:normal;">IIT Roorkee</a> with interest in <a href="https://www.pcmag.com/encyclopedia/term/40139/computer-architecture"
+                    target="_blank" style="font-weight:normal;">computer architecture</a>, <a href="https://www.intel.in/content/www/in/en/architecture-and-technology/optane-dc-persistent-memory.html" style="font-weight:normal;" target="_blank" class="alert-link">Persistent
+						Memories</a> and <a href="https://fpgainfinance.com/what-are-fpgas/" target="_blank" style="font-weight:normal;">FPGA</a> based accelerators. My r&#xe9;sum&#xe9; is available <a href="http://resume.suyashmahar.com/cv.pdf" class="alert-link" target="_blank"
+                    style="font-weight:normal;">here</a>.</p>
+        </div>
     </div>
     <div class="container">
-      <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top: 2%";> 
-	<div class="col-md-8">
-	  
-	  <p/> 
-	  <h1 class="bd-title" id="project_head">Projects</h1>
-	  <p/>
-	  In past I have worked on making persistent memory systems fast and reliable (<i>DC-PMM</i>), wear leveling in resistive memories (<i>LPDDR2-NVM</i> and <i>DDRx</i>), energy estimation of DDR3 DRAMs, FPGA based <a href="https://en.wikipedia.org/wiki/Forwarding_information_base" target="_blank" style="font-weight:normal;">FIB</a> lookups in <a href="https://en.wikipedia.org/wiki/Named_data_networking" target="_blank" style="font-weight:normal;">Named Data Network</a> and several hobby projects hosted at my <a href="https://github.com/suyashmahar" target="_blank" style="font-weight:normal;">GitHub profile</a>. 
-	  <div id="accordion" role="tablist">
-	    <div class="card">
-	      <div class="card-header" role="tab" id="headingOne">
-		<h5 class="mb-0">
-		  <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-		    VAMPIRE
-		  </a>
-		</h5>
-	      </div>
+        <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top:
+				2%" ;>
 
-	      <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-		<div class="card-body">
-		  <p class="card-text">An open-source DRAM power model based on extensive experimental characterization..</p>
-		  <a href="http://users.ece.cmu.edu/~saugatag/papers/18sigmetrics_vampire.pdf" class="btn btn-primary" target="_blank">Paper</a>
-		  <a href="https://github.com/CMU-SAFARI/VAMPIRE" class="btn btn-primary"  target="_blank">GitHub</a>
-		</div>
-	      </div>
-	    </div>
-	    <div class="card">
-	      <div class="card-header" role="tab" id="headingOne">
-		<h5 class="mb-0">
-		  <a data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-		    Trianglify
-		  </a>
-		</h5>
-	      </div>
+            <!-- <h1 class="bd-title" id="project_head">Projects</h1> -->
+            <h1>Projects<br></h1>
+            <table class="table-spaced" style="width:100%;">
+                <tr class="bottom-three">
+                    <td class="td-spaced font-weight-normal">
+                        In past, I have worked on stuff like:
+                        <ul>
+                            <li>Making persistent memory systems fast and reliable (<i>DC-PMM</i>) at <a href="https://www.cs.virginia.edu/~smk9u/shiftLab.html">UVa</a></li>
+                            <li>Wear levelling in resistive memories (<i>LPDDR2-NVM</i> and <i>DDRx</i>) at <a href="https://www.technion.ac.il/">Technion</a></li>
+                            <li>Energy estimation of DDR3 DRAM DIMMs at <a href="https://www.archive.ece.cmu.edu/~safari/">CMU</a></li>
+                            <li>FPGA based FIB lookups in Named Data Network at <a href="https://iitr.ac.in">IITR</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <p>
+                <h1 class="bd-title" id="technical_reports_head">Publication</h1>
+            </p>
+            <br>
+            <p>
+                <table class="table-spaced" style="width:100%;">
+                    <tr class="bottom-three">
+                        <td class="td-spaced font-weight-light">D. Saxena, <b>Suyash Mahar</b>, V. Raychoudhury, J. Cao<br> <a href="https://doi.org/10.1145/3288599.3288613" target="_blank" style="font-weight:normal;"><b>Scalable, High-speed On-chip-based NDN
+												Name Forwarding using FPGA</b><br></a>Proceedings of the 20th International Conference on Distributed Computing and Networking (ICDCN'19), January 4-7, 2019, Bangalore, 2019</td>
+                    </tr>
+                </table>
+                <p>
+                    <h1 class="bd-title" id="technical_reports_head">Technical Reports</h1>
+                </p>
+                <p>
+                    <table class="table-spaced" style="width:100%;">
+                        <tr class="bottom-three">
+                            <td class="td-spaced font-weight-light">Sumit Kumar Yadav, <b>Suyash
+												Mahar</b>, Naveen Kakarla <br> <a href="./resources/poster-summer-2018.pdf" target="_blank" style="font-weight:normal;"><b>Reducing DRAM Power Consumption by
+													Exploring and Modeling Memory Access Scheduling Policies</b><br></a><i>Poster,
+												ECE Undergraduate research symposium, July 27, 2018</i></td>
+                        </tr>
 
-	      <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-		<div class="card-body">
-		  <img class="card-img-top" src="https://raw.githubusercontent.com/sdsmdg/trianglify/develop/resources/splash.png" alt="Trianglify poster">
-		  <p class="card-text">Trianglify is an Android library that helps creates views with beautiful patterns. Trianglify is based on MVP architecture and licensed under MIT license.</p>
-		  <a href="http://bit.ly/trianglifyDemo" class="btn btn-primary" target="_blank">GooglePlay Demo</a>
-		  <a href="https://github.com/sdsmdg/trianglify" class="btn btn-primary"  target="_blank">GitHub</a>
-		</div>
-	      </div>
-	    </div>
-	    <div class="card">
-	      <div class="card-header" role="tab" id="headingTwo">
-		<h5 class="mb-0">
-		  <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-		    Pine
-		  </a>
-		</h5>
-	      </div>
-	      <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-		<div class="card-body">
-		  <p class="card-text"><img src="./img/pine-tree.png" alt="pine tree" width="32px"/> Hassle free .gitignore manager.</p><a href="https://github.com/suyashmahar/pine" class="btn btn-primary"  target="_blank">GitHub</a>
-		</div>
-	      </div>
-	    </div>
-	    <div class="card">
-	      <div class="card-header" role="tab" id="headingThree">
-		<h5 class="mb-0">
-		  <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-		    RISC processor
-		  </a>
-		</h5>
-	      </div>
-	      <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-		<div class="card-body">
-		  <p class="card-text">Basic implementation of a 32-bit single core unpipelined RISC processor written in Verilog. This is a hobby project to understand how processors and operating systems work.</p><a href="https://github.com/suyashmahar/RISC-processor" class="btn btn-primary"  target="_blank">GitHub</a>
-		  
-		</div>
-	      </div>
-	    </div>
-	  </div>
-	  <br>
-	  <p>
-	    <h1 class="bd-title" id="technical_reports_head">Publication</h1>
-	  </p>
-	  <p>
-	    <table class= "table-spaced" style="width:100%;">
-	      <tr class="bottom-three">
-		<td class="td-spaced font-weight-light">D. Saxena, <b>Suyash Mahar</b>, V. Raychoudhury,  J. Cao<br> <a href="https://doi.org/10.1145/3288599.3288613" target="_blank" style="font-weight:normal;"><b>Scalable, High-speed On-chip-based NDN Name Forwarding using FPGA</b><br></a>Proceedings of the 20th International Conference on Distributed Computing and Networking (ICDCN'19), January 4-7, 2019, Bangalore, 2019</td>
-	      </tr>
-	    </table>
-	  <p>
-	    <h1 class="bd-title" id="technical_reports_head">Technical Reports</h1>
-	  </p>
-	  <p>
-	    <table class= "table-spaced" style="width:100%;">
-	      <tr class="bottom-three">
-		<td class="td-spaced font-weight-light">Sumit Kumar Yadav, <b>Suyash Mahar</b>, Naveen Kakarla <br> <a href="./resources/poster-summer-2018.pdf" target="_blank" style="font-weight:normal;"><b>Reducing DRAM Power Consumption by Exploring and Modeling Memory Access Scheduling Policies</b><br></a><i>Poster, ECE Undergraduate research symposium, July 27, 2018</i></td>
-	      </tr>
+                        <tr class="bottom-three">
+                            <td class="td-spaced font-weight-light">Sidharth Thomas, <b>Suyash
+												Mahar</b> <br> <a href="./resources/project-report-summer-2017.pdf" target="_blank" style="font-weight:normal;"><b>Implementation of
+													CORDIC Algorithms in FPGA</b><br></a><i>Short-term project, Summer
+												2017 - May 2, 2017 to May 28, 2017</i></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <h1 class="bd-title" id="technical_reports_head">Fun stuff around the web
+                    </h1>
+                </p>
+                <p>
+                    <table class="table-spaced" style="width:100%;">
+                        <tr class="bottom-three">
+                            <td class="td-spaced font-weight-light">
+                                <a href="https://louisdx.github.io/cxx-prettyprint/" target="_blank" style="font-weight:normal;">Python like STL container printing in
+												C++</a><br>
+                                <a href="https://cdecl.org" target="_blank" style="font-weight:normal;">Convert C-gibberrish to English and back</a><br>
+                                <a href="http://beza1e1.tuxen.de/lore/" target="_blank" style="font-weight:normal;">Software Folklore</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <h1 class="bd-title" id="technical_reports_head">Other stuff</h1>
+                </p>
+                <p>
+                    <table class="table-spaced" style="width:100%;">
+                        <tr class="bottom-three">
+                            <td class="td-spaced font-weight-light">
+                                <a href="./resources/dram-presentation-2018.pdf" target="_blank" style="font-weight:normal;">A (very) short presentation on DRAM</a><br>
+                            </td>
+                        </tr>
+                    </table>
 
-	      <tr class="bottom-three">
-		<td class="td-spaced font-weight-light">Sidharth Thomas, <b>Suyash Mahar</b> <br> <a href="./resources/project-report-summer-2017.pdf" target="_blank" style="font-weight:normal;"><b>Implementation of CORDIC Algorithms in FPGA</b><br></a><i>Short-term project, Summer 2017 - May 2, 2017 to May 28, 2017</i></td>
-	      </tr>
-	    </table>
-	    <br>
-	    <h1 class="bd-title" id="technical_reports_head">Fun stuff around the web</h1>
-	  </p>
-	  <p>
-	    <table class= "table-spaced" style="width:100%;">
-	      <tr class="bottom-three">
-		<td class="td-spaced font-weight-light">
-		  <a href="https://louisdx.github.io/cxx-prettyprint/" target="_blank" style="font-weight:normal;">Python like STL container printing in C++</a><br>
-		  <a href="https://cdecl.org" target="_blank" style="font-weight:normal;">Convert C-gibberrish to English and back</a>
-		</td>
-	      </tr>
-	    </table>
-	    <br>
-	    <h1 class="bd-title" id="technical_reports_head">Other stuff</h1>
-	  </p>
-	  <p>
-	    <table class= "table-spaced" style="width:100%;">
-	      <tr class="bottom-three">
-		<td class="td-spaced font-weight-light">
-		  <a href="./resources/dram-presentation-2018.pdf" target="_blank" style="font-weight:normal;">A (very) short presentation on DRAM</a><br>
-		</td>
-	      </tr>
-	    </table>
-	</div>
-	
-	<div class="col-md-4">
-	  <center>
-	    <img src="./img/pic.png" alt="author_image" class="img-thumbnail" style="width: 220px; margin-top: 3%">
-	    <p>
-	      <h3 class="bd-title" id="contact_info_head">Contact info</h3>  
-	  </center>
-	  
-	  <div style = "text-align: center; margin-left: 10%; margin-right: 10%">
-	    <div style = "display: inline-block; text-align: left;">
-	      <table style="width:100%;">
-		<tr>
-		  <td><img src="./img/email-box.svg" alt="email"></td>
-		  <td><a target="_blank" href="#" class="alert-link" href="mailto:contact@suyashmahar.com">contact@suyashmahar.com</a></td>
-		</tr>
-		<tr>
-		  <td><img src="./img/github-box.svg" alt="email"></td>
-		  <td><a target="_blank" class="alert-link" href="https://github.com/suyashmahar">github/suyashmahar</a></td>
-		</tr>
-		<tr>
-		  <td><img src="./img/location-box.svg" alt="location"></td>
-		  <td>G-160, Ravindra Bhawan</td>
-		</tr>
-		<tr>
-		  <td></td>
-		  <td>IIT Roorkee</td>
-		</tr>
-	      </table>
-	    </div>
-	  </div>
-	</div>
-      </div>
+        </div>
     </div>
-    
+
 
     <footer class="footer">
-      <center>
-	<p/>
-	<hr style="padding-left:10%;padding-right=10%;">
-	<p style="color: #777;">&#xa9; 2018-20 Suyash Mahar<p/>
-	<p/>
-      </center>
+        <center>
+            <p/>
+            <hr style="padding-left:10%;padding-right=10%;">
+            <p style="color: #777;">&#xa9; 2018-20 Suyash Mahar
+                <p/>
+                <p/>
+        </center>
     </footer>
     <!--Content ends here-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/js/bootstrap-material-design.js" integrity="sha384-3xciOSDAlaXneEmyOo0ME/2grfpqzhhTcM4cE32Ce9+8DW/04AGoTACzQpphYGYe" crossorigin="anonymous"></script>
-    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
-  </body>
+    <script>
+        $(document).ready(function() {
+            $('body').bootstrapMaterialDesign();
+        });
+    </script>
+</body>
