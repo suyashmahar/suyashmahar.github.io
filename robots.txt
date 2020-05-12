@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /.github
+Disallow: /courses
+Disallow: /img
+Disallow: /resume-source
+Disallow: /~resources
+Disallow: /resources
