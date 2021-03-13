@@ -5,28 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.0.0-beta.4/dist/css/bootstrap-material-design.min.css" integrity="sha384-R80DC0KVBO4GSTw+wZ5x2zn2pu4POSErBkf8/fSFhPXHxvHJydT0CSgAP2Yo2r4I" crossorigin="anonymous">
-    <style>
-      .top-spacing {
-          margin-top: 1em;
-      }
-      .bottom-three {
-          margin-bottom: 3cm;
-      }
-      
-      .table-spaced {
-          border-collapse: collapse;
-      }
-      
-      .td-spaced {
-          padding-top: .5em;
-          padding-bottom: .5em;
-      }
-      
-      .page-title {
-          padding-top: 1em;
-          padding-bottom: 0.2em;
-      }
-    </style>
+    <link rel="stylesheet" href="./style.css">
     <title>Suyash Mahar</title>
   </head>
 
@@ -42,22 +21,18 @@
         <p class="lead top-spacing">
 	  I'm a first year PhD student at UCSD's CSE department with interest in
 	  <a href="https://www.intel.in/content/www/in/en/architecture-and-technology/optane-dc-persistent-memory.html"
-	     style="font-weight:normal;"
 	     target="_blank"
-	     class="alert-link">Persistent Memories</a>
+	     class="alert-link main-content-link">Persistent Memories</a>
 	  and their applications. I'm advised by
-	  <a class="alert-link" style="font-weight:normal;" href="https://swanson.ucsd.edu/">Prof. Steven Swanson</a>.
+	  <a class="main-content-link alert-link " href="https://swanson.ucsd.edu/">Prof. Steven Swanson</a>.
 	  </p>
-	<p class="lead">I also sometimes write posts in a notebook-style blog at the <a class="alert-link" style="font-weight:normal;" href="https://notebook.suyashmahar.com">notebook</a>.</p>
+	<p class="lead">I also sometimes write posts in a notebook-style blog at the <a class="alert-link main-content-link" href="https://notebook.suyashmahar.com">notebook</a>.</p>
       </div>
     </div>
     <div class="container">
-      <div class="row" style="padding-left: 10%; padding-right: 10%; padding-top:
-			      2%" ;>
-
-        <!-- <h1 class="bd-title top-spacing" id="project_head">Projects</h1> -->
-        <h1>Projects<br></h1>
-        <table class="table-spaced" style="width:100%;">
+      <div class="row main-content" ;>
+        <h1 class="section-title">Projects<br></h1>
+        <table class="table-spaced section-content">
           <tr class="bottom-three">
             <td class="td-spaced font-weight-normal">
               In the past, I have worked on stuff like:
@@ -72,21 +47,22 @@
         </table>
         <br>
         <p>
-          <h1 class="bd-title top-spacing" id="technical_reports_head">Publications</h1>
+          <h1 class="bd-title top-spacing section-title" id="technical_reports_head">Publications</h1>
         </p>
-	<table class="table-spaced" style="width:100%;">
+	<table class="table-spaced section-content">
           <tr class="bottom-three">
             <td class="td-spaced font-weight-light">S. Liu<sup>*</sup>, <b>Suyash Mahar</b><sup>*</sup>, B. Ray, S. Khan<br> 
               <div class="text-dark font-weight-normal"><b>PMFuzz: Test Case Generation for Persistent Memory Programs</b></div>
               International Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS'21)<br>
-              <i><sup>*</sup> = Equal contribution author</i>
+              <i><sup>*</sup> = Equal contribution author</i></br>
+	      [<a href="resources/papers/pmfuzz_asplos21.pdf"><b>pdf</b></a>] [<a href="https://github.com/Systems-ShiftLab/pmfuzz"><b>GitHub</b></a>]</br>
             </td>
           </tr>
           <tr class="bottom-three">
 	    <td class="td-spaced font-weight-light">L. Yavits, L. Orosa, <b>Suyash Mahar</b>, J. Ferreira, O. Mutlu., R. Ginosar, M. Erez<br>
               <div class="text-dark font-weight-normal"><b>WoLFRaM: Enhancing Wear-Leveling and Fault Tolerance in Resistive Memories Using Programmable Address Decoders</b></div>
               International Conference on Computer Design (ICCD'20)<br>
-	      [<a href="resources/papers/wolfram_iccd20.pdf"><b>pdf</b></a>] [<a href="https://github.com/suyashmahar/ramulator-wolfram"><b>code</b></a>]
+	      [<a href="resources/papers/wolfram_iccd20.pdf"><b>pdf</b></a>] [<a href="https://github.com/suyashmahar/ramulator-wolfram"><b>GitHub</b></a>]
             </td>
           </tr>
           <tr class="bottom-three">
@@ -100,13 +76,13 @@
 	    </br>
         <p>
 	  <br>
-          <h1 class="bd-title top-spacing" id="technical_reports_head">Technical Reports</h1>
+          <h1 class="bd-title top-spacing section-title" id="technical_reports_head">Technical Reports</h1>
         </p>
         <p>
-          <table class="table-spaced" style="width:100%;">
+          <table class="table-spaced section-content">
             <tr class="bottom-three">
               <td class="td-spaced font-weight-light">
-		<a  class="text-dark font-weight-normal">
+		<a class="text-dark font-weight-normal">
 		  <b>Reducing DRAM Power Consumption by Exploring and Modeling Memory Access Scheduling Policies</b>
 		  <br>
 		</a>
@@ -129,11 +105,11 @@
             </tr>
           </table>
           <br>
-          <h1 class="bd-title top-spacing" id="technical_reports_head">Fun stuff around the web
+          <h1 class="bd-title top-spacing section-title" id="technical_reports_head">Fun stuff around the web
           </h1>
         </p>
         <p>
-          <table class="table-spaced" style="width:100%;">
+          <table class="table-spaced section-content">
             <tr class="bottom-three">
               <td class="td-spaced font-weight-light">
                 <a href="https://louisdx.github.io/cxx-prettyprint/" target="_blank" style="font-weight:normal;">Python like STL container printing in
@@ -144,13 +120,14 @@
             </tr>
           </table>
           <br>
-          <h1 class="bd-title top-spacing" id="technical_reports_head">Other stuff</h1>
+          <h1 class="bd-title top-spacing section-title" id="technical_reports_head">Other stuff</h1>
         </p>
         <p>
-          <table class="table-spaced" style="width:100%;">
+          <table class="table-spaced section-content" style="width:100%;">
             <tr class="bottom-three">
               <td class="td-spaced font-weight-light">
                 <a href="./resources/dram-presentation-2018.pdf" target="_blank" style="font-weight:normal;">A (very) short presentation on DRAM</a><br>
+                <a href="/py-wasm" target="_blank" style="font-weight:normal;">Python to WebAssembly compiler I wrote during CSE231.</a><br>
               </td>
             </tr>
           </table>
@@ -164,7 +141,7 @@
         <hr style="padding-left:10%;padding-right=10%;">
 	<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"><img src="img/solar_systems.png" alt="Digital drawing of the Solar System" style="width: 10em;"></img></a>
 	<p>
-        <p style="color: #777;">&#xa9; 2018-20 Suyash Mahar
+        <p style="color: #777;">&#xa9; 2018-21 Suyash Mahar
         <p/>
         <p/>
       </center>

@@ -1,0 +1,53 @@
+.heading {
+    
+}
+
+.top-spacing {
+    margin-top: 1em;
+}
+
+.bottom-three {
+    margin-bottom: 3cm;
+}
+
+.table-spaced {
+    border-collapse: collapse;
+}
+
+.td-spaced {
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+.page-title {
+    padding-top: 1em;
+    padding-bottom: 0.2em;
+}
+
+.section-content {
+    width: 100%;
+    margin-left: 4%;
+}
+
+.main-content {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2%;
+}
+
+.main-content-link {
+    font-weight:normal;
+}
+
+.normal-link {
+    
+}
+
+.acm-badge {
+    padding-top: 0.5em;
+    height: 4em;
+}
+
+.section-title {
+    color: #1F305E;
+}
